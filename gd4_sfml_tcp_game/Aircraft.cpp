@@ -125,12 +125,12 @@ void Aircraft::CollectMissile(unsigned int count)
 void Aircraft::UpdateTexts()
 {
 	m_health_display->SetString(std::to_string(GetHitPoints()) + "HP");
-	m_health_display->setPosition(0.f, 50.f);
+	m_health_display->setPosition({ 0.f, 50.f });
 	m_health_display->setRotation(-getRotation());
 
 	if (m_missile_display)
 	{
-		m_missile_display->setPosition(0.f, 70.f);
+		m_missile_display->setPosition({ 0.f, 70.f });
 		if (m_missile_ammo == 0)
 		{
 			m_missile_display->SetString("");
@@ -214,7 +214,7 @@ void Aircraft::CreateBullet(SceneNode& node, const TextureHolder& textures) cons
 void Aircraft::CreateProjectile(SceneNode& node, ProjectileType type, float x_offset, float y_offset, const TextureHolder& textures) const
 {
 	std::unique_ptr<Projectile> projectile(new Projectile(type, textures));
-	sf::Vector2f offset(x_offset * m_sprite.getGlobalBounds().width, y_offset * m_sprite.getGlobalBounds().height);
+	sf::Vector2f offset(x_offset * m_sprite.getGlobalBounds().size.x, y_offset * m_sprite.getGlobalBounds().size.y);
 	sf::Vector2f velocity(0, projectile->GetMaxSpeed());
 
 	float sign = IsAllied() ? -1.f : 1.f;
@@ -335,11 +335,11 @@ void Aircraft::UpdateRollAnimation()
 		//Roll left: Texture rect is offset once
 		if (GetVelocity().x < 0.f)
 		{
-			textureRect.left += textureRect.width;
+			textureRect.position.x += textureRect.size.x;
 		}
 		else if (GetVelocity().x > 0.f)
 		{
-			textureRect.left += 2 * textureRect.width;
+			textureRect.position.x += 2 * textureRect.size.x;
 		}
 		m_sprite.setTextureRect(textureRect);
 

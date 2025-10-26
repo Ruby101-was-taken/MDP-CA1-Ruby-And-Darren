@@ -2,7 +2,6 @@
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
 
-#include <SFML/System/NonCopyable.hpp>
 #include <SFML/Audio/Music.hpp>
 
 #include <map>
@@ -10,7 +9,7 @@
 
 #include "MusicThemes.hpp"
 
-class MusicPlayer : private sf::NonCopyable
+class MusicPlayer 
 {
 public:
 	MusicPlayer();

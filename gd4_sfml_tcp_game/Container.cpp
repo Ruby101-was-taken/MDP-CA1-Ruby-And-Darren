@@ -25,17 +25,19 @@ void gui::Container::HandleEvent(const sf::Event& event)
     {
         m_children[m_selected_child]->HandleEvent(event);
     }
-    else if (event.type == sf::Event::KeyReleased)
+    const auto* key_pressed = event.getIf<sf::Event::KeyPressed>();
+    if (key_pressed)
     {
-        if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
+        sf::Keyboard::Scancode key = key_pressed->scancode;
+        if (key == sf::Keyboard::Scancode::W || key == sf::Keyboard::Scancode::Up)
         {
             SelectPrevious();
         }
-        else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
+        else if (key == sf::Keyboard::Scancode::S || key == sf::Keyboard::Scancode::Down)
         {
             SelectNext();
         }
-        else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
+        else if (key == sf::Keyboard::Scancode::Enter || key == sf::Keyboard::Scancode::Space)
         {
             if (HasSelection())
             {

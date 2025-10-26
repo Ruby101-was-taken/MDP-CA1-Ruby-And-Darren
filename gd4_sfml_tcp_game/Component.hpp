@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 namespace gui
 {
-	class Component : public sf::Drawable, public sf::Transformable, private sf::NonCopyable
+	class Component : public sf::Drawable, public sf::Transformable
 	{
 	public:
 		typedef std::shared_ptr<Component> Ptr;

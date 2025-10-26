@@ -2,6 +2,7 @@
 #include "TextureID.hpp"
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <map>
 
 
 class TextureHolder

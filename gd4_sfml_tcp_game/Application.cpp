@@ -8,7 +8,7 @@
 
 const sf::Time Application::kTimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() : m_window(sf::VideoMode(1024, 768), "States", sf::Style::Close)
+Application::Application() : m_window(sf::VideoMode({ 1024, 768 }), "States", sf::Style::Close)
 	, m_stack(State::Context(m_window, m_textures, m_fonts, m_player, m_music, m_sound))
 {
 	m_window.setKeyRepeatEnabled(false);
@@ -48,13 +48,9 @@ void Application::Run()
 
 void Application::ProcessInput()
 {
-	sf::Event event;
-	while (m_window.pollEvent(event))
-	{
+	while (const std::optional event = m_window.pollEvent()) {
 		m_stack.HandleEvent(event);
-
-		if (event.type == sf::Event::Closed)
-		{
+		if (event->is<sf::Event::Closed>()) {
 			m_window.close();
 		}
 	}

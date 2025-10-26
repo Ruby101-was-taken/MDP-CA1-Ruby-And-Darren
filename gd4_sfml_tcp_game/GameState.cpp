@@ -38,9 +38,11 @@ bool GameState::HandleEvent(const sf::Event& event)
 	m_player.HandleEvent(event, commands);
 
 	//Escape should bring up the pause menu
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+	
+	if (auto key = event.getIf<sf::Event::KeyPressed>())
 	{
-		RequestStackPush(StateID::kPause);
+		if(key->scancode == sf::Keyboard::Scancode::Escape)
+			RequestStackPush(StateID::kPause);
 	}
 	return true;
 }

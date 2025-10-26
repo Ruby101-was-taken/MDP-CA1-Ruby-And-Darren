@@ -28,19 +28,18 @@ void BloomEffect::Apply(const sf::RenderTexture& input, sf::RenderTarget& output
 
 void BloomEffect::PrepareTextures(sf::Vector2u size)
 {
-	if (m_brightness_texture.getSize() != size)
-	{
-		m_brightness_texture.create(size.x, size.y);
+	if (m_brightness_texture.getSize() != size) {
+		m_brightness_texture.resize({ size.x, size.y });
 		m_brightness_texture.setSmooth(true);
 
-		m_firstpass_textures[0].create(size.x / 2, size.y / 2);
+		m_firstpass_textures[0].resize({ size.x / 2, size.y / 2 });
 		m_firstpass_textures[0].setSmooth(true);
-		m_firstpass_textures[1].create(size.x / 2, size.y / 2);
+		m_firstpass_textures[1].resize({ size.x / 2, size.y / 2 });
 		m_firstpass_textures[1].setSmooth(true);
 
-		m_secondpass_textures[0].create(size.x / 4, size.y / 4);
+		m_secondpass_textures[0].resize({ size.x / 4, size.y / 4 });
 		m_secondpass_textures[0].setSmooth(true);
-		m_secondpass_textures[1].create(size.x / 4, size.y / 4);
+		m_secondpass_textures[1].resize({size.x / 4, size.y / 4 }); 
 		m_secondpass_textures[1].setSmooth(true);
 	}
 }

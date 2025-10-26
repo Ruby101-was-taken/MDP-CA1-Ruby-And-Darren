@@ -13,7 +13,7 @@
 
 #include <array>
 
-class World : private sf::NonCopyable
+class World 
 {
 public:
 	explicit World(sf::RenderTarget& target, FontHolder& font, SoundPlayer& sounds);

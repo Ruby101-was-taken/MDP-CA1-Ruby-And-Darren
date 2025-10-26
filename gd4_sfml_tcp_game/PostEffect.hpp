@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/System/NonCopyable.hpp>
 
 namespace sf
 {
@@ -8,7 +7,7 @@ namespace sf
 	class Shader;
 }
 
-class PostEffect : sf::NonCopyable
+class PostEffect
 {
 public:
 	virtual ~PostEffect();

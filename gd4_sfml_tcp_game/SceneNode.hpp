@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics.hpp>
 #include "ReceiverCategories.hpp"
 #include "CommandQueue.hpp"
@@ -10,7 +9,7 @@
 
 
 
-class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
+class SceneNode : public sf::Transformable, public sf::Drawable
 {
 public:
 	typedef std::unique_ptr<SceneNode> Ptr;

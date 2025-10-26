@@ -5,13 +5,13 @@
 
 gui::Button::Button(State::Context context)
     : m_sprite(context.textures->Get(TextureID::kButtons))
-    , m_text("", context.fonts->Get(Font::kMain), 16)
+    , m_text(context.fonts->Get(Font::kMain), "", 16)
     , m_is_toggle(false)
     , m_sounds(*context.sounds)
 {
     ChangeTexture(ButtonType::kNormal);
     sf::FloatRect bounds = m_sprite.getLocalBounds();
-    m_text.setPosition(bounds.width / 2, bounds.height / 2);
+    m_text.setPosition({ bounds.size.x / 2, bounds.size.y / 2 });
 }
 
 void gui::Button::SetCallback(Callback callback)
@@ -97,6 +97,6 @@ void gui::Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void gui::Button::ChangeTexture(ButtonType buttonType)
 {
-    sf::IntRect textureRect(0, 50 * static_cast<int>(buttonType), 200, 50);
+    sf::IntRect textureRect({ 0, 50 * static_cast<int>(buttonType) }, { 200, 50 });
     m_sprite.setTextureRect(textureRect);
 }

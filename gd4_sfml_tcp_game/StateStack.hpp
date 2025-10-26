@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/System/NonCopyable.hpp>
 #include "State.hpp"
 #include "StackAction.hpp"
 #include "StateID.hpp"
@@ -8,7 +7,7 @@
 #include <map>
 #include <functional>
 
-class StateStack : private sf::NonCopyable
+class StateStack
 {
 public:
 	explicit StateStack(State::Context context);
