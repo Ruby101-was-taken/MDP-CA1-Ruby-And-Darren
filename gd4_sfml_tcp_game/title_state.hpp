@@ -13,8 +13,8 @@ public:
 	virtual bool HandleEvent(const sf::Event& event) override;
 
 private:
-	sf::Sprite m_background_sprite;
-	sf::Text m_text;
+	sf::Sprite background_sprite_;
+	sf::Text text_;
 
 	bool m_show_text;
 	sf::Time m_text_effect_time;

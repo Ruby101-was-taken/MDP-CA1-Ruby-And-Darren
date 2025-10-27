@@ -22,7 +22,7 @@ public:
 	
 
 private:
-	sf::Vector2f m_velocity;
-	int m_hitpoints;
+	sf::Vector2f velocity_;
+	int hitpoints_;
 };
 

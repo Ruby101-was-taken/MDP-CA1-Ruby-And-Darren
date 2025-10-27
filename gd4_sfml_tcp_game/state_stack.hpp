@@ -1,7 +1,7 @@
 #pragma once
 #include "State.hpp"
-#include "StackAction.hpp"
-#include "StateID.hpp"
+#include "stack_action.hpp"
+#include "state_id.hpp"
 
 #include <vector>
 #include <map>
@@ -36,18 +36,18 @@ private:
 	};
 
 private:
-	std::vector<State::Ptr> m_stack;
-	std::vector<PendingChange> m_pending_list;
-	State::Context m_context;
-	std::map<StateID, std::function<State::Ptr()>> m_state_factory;
+	std::vector<State::Ptr> stack_;
+	std::vector<PendingChange> pending_list_;
+	State::Context context_;
+	std::map<StateID, std::function<State::Ptr()>> state_factory_;
 };
 
 template<typename T>
 void StateStack::RegisterState(StateID state_id)
 {
-	m_state_factory[state_id] = [this]()
+	state_factory_[state_id] = [this]()
 		{
-			return State::Ptr(new T(*this, m_context));
+			return State::Ptr(new T(*this, context_));
 		};
 }
 

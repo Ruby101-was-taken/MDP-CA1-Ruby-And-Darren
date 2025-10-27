@@ -1,6 +1,5 @@
 #pragma once
-enum class Action
-{
+enum class Action {
 	kMoveLeft,
 	kMoveRight,
 	kMoveUp,

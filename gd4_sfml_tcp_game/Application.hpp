@@ -20,16 +20,16 @@ private:
 	void RegisterStates();
 
 private:
-	sf::RenderWindow m_window;
-	Player m_player;
+	sf::RenderWindow window_;
+	Player player_;
 
-	TextureHolder m_textures;
-	FontHolder m_fonts;
+	TextureHolder textures_;
+	FontHolder fonts_;
 
-	StateStack m_stack;
+	StateStack stack_;
 	static const sf::Time kTimePerFrame;
 
-	MusicPlayer m_music;
-	SoundPlayer m_sound;
+	MusicPlayer music_;
+	SoundPlayer sound_;
 };
 

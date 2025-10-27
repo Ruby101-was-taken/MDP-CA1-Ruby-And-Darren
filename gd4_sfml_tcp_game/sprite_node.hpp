@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneNode.hpp"
+#include "scene_node.hpp"
 class SpriteNode : public SceneNode
 {
 public:
@@ -10,6 +10,6 @@ private:
 	virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	sf::Sprite m_sprite;
+	sf::Sprite sprite_;
 };
 

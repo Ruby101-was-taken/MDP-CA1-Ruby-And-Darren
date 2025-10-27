@@ -22,9 +22,9 @@ ParticleNode::ParticleNode(ParticleType type, const TextureHolder& textures)
 void ParticleNode::AddParticle(sf::Vector2f position)
 {
     Particle particle;
-    particle.m_position = position;
-    particle.m_color = Table[static_cast<int>(m_type)].m_color;
-    particle.m_lifetime = Table[static_cast<int>(m_type)].m_lifetime;
+    particle.position_ = position;
+    particle.color_ = Table[static_cast<int>(m_type)].m_color;
+    particle.lifetime_ = Table[static_cast<int>(m_type)].m_lifetime;
 
     m_particles.emplace_back(particle);
 }
@@ -50,7 +50,7 @@ void ParticleNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
     //Decrease lifetime of existing particles
     for (Particle& particle : m_particles)
     {
-        particle.m_lifetime -= dt;
+        particle.lifetime_ -= dt;
     }
     m_needs_vertex_update = true;
 }
@@ -89,10 +89,10 @@ void ParticleNode::ComputeVertices() const
 
     for (const Particle& particle : m_particles)
     {
-        sf::Vector2f pos = particle.m_position;
-        sf::Color color = particle.m_color;
+        sf::Vector2f pos = particle.position_;
+        sf::Color color = particle.color_;
 
-        float ratio = particle.m_lifetime.asSeconds() / Table[static_cast<int>(m_type)].m_lifetime.asSeconds();
+        float ratio = particle.lifetime_.asSeconds() / Table[static_cast<int>(m_type)].m_lifetime.asSeconds();
         color.a = static_cast<uint8_t>(255 * std::max(ratio, 0.f));
 
         AddVertex(pos.x - half.x, pos.y - half.y, 0.f, 0.f, color);

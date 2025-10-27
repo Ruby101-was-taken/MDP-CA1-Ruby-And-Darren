@@ -22,8 +22,8 @@ namespace gui
 		void SelectPrevious();
 
 	private:
-		std::vector<Component::Ptr> m_children;
-		int m_selected_child;
+		std::vector<Component::Ptr> children_;
+		int selected_child_;
 	};
 }
 

@@ -11,7 +11,7 @@ public:
 	virtual bool HandleEvent(const sf::Event& event);
 
 private:
-	sf::Text m_game_over_text;
-	sf::Time m_elapsed_time;
+	sf::Text game_over_text_;
+	sf::Time elapsed_time_;
 };
 

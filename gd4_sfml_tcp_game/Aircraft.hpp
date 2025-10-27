@@ -1,15 +1,15 @@
 #pragma once
 #include "Entity.hpp"
-#include "AircraftType.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "TextNode.hpp"
-#include "Utility.hpp"
-#include "ProjectileType.hpp"
+#include "aircraft_type.hpp"
+#include "resource_identifiers.hpp"
+#include "text_node.hpp"
+#include "utility.hpp"
+#include "projectile_type.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 #include "Animation.hpp"
+#include "sound_effect.hpp"
 
-class Aircraft : public Entity
-{
+class Aircraft : public Entity {
 public:
 	Aircraft(AircraftType type, const TextureHolder& textures, const FontHolder& fonts);
 	unsigned int GetCategory() const override;
@@ -41,31 +41,31 @@ private:
 	void UpdateRollAnimation();
 
 private:
-	AircraftType m_type;
-	sf::Sprite m_sprite;
-	Animation m_explosion;
+	AircraftType type_;
+	sf::Sprite sprite_;
+	Animation explosion_;
 
-	TextNode* m_health_display;
-	TextNode* m_missile_display;
-	float m_distance_travelled;
-	int m_directions_index;
+	TextNode* health_display_;
+	TextNode* missile_display_;
+	float distance_travelled_;
+	int directions_index_;
 
-	Command m_fire_command;
-	Command m_missile_command;
-	Command m_drop_pickup_command;
+	Command fire_command_;
+	Command missile_command_;
+	Command drop_pickup_command_;
 
-	unsigned int m_fire_rate;
-	unsigned int m_spread_level;
-	unsigned int m_missile_ammo;
+	unsigned int fire_rate_;
+	unsigned int spread_level_;
+	unsigned int missile_ammo_;
 
-	bool m_is_firing;
-	bool m_is_launching_missile;
-	sf::Time m_fire_countdown;
+	bool is_firing_;
+	bool is_launching_missile_;
+	sf::Time fire_countdown_;
 
-	bool m_is_marked_for_removal;
-	bool m_show_explosion;
-	bool m_spawned_pickup;
-	bool m_played_explosion_sound;
+	bool is_marked_for_removal_;
+	bool show_explosion_;
+	bool spawned_pickup_;
+	bool played_explosion_sound_;
 
 };
 

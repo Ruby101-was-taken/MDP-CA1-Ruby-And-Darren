@@ -1,6 +1,6 @@
 #pragma once
-#include "SceneNode.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "scene_node.hpp"
+#include "resource_identifiers.hpp"
 
 class TextNode : public SceneNode
 {
@@ -11,6 +11,6 @@ public:
 private:
 	virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-	sf::Text m_text;
+	sf::Text text_;
 };
 

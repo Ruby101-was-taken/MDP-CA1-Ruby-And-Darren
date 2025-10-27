@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include "ReceiverCategories.hpp"
-#include "CommandQueue.hpp"
-#include "Command.hpp"
+#include "receiver_categories.hpp"
+#include "command_queue.hpp"
+#include "command.hpp"
 
 #include <set>
 
@@ -50,9 +50,9 @@ private:
 	virtual bool IsMarkedForRemoval() const;
 
 private:
-	std::vector<Ptr> m_children;
-	SceneNode* m_parent;
-	ReceiverCategories m_default_category;
+	std::vector<Ptr> children_;
+	SceneNode* parent_;
+	ReceiverCategories default_category_;
 };
 float Distance(const SceneNode& lhs, const SceneNode& rhs);
 bool Collision(const SceneNode& lhs, const SceneNode& rhs);

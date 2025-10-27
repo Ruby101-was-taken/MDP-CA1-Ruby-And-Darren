@@ -8,26 +8,26 @@
 
 const sf::Time Application::kTimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() : m_window(sf::VideoMode({ 1024, 768 }), "States", sf::Style::Close)
-	, m_stack(State::Context(m_window, m_textures, m_fonts, m_player, m_music, m_sound))
+Application::Application() : window_(sf::VideoMode({ 1024, 768 }), "States", sf::Style::Close)
+	, stack_(State::Context(window_, textures_, fonts_, player_, music_, sound_))
 {
-	m_window.setKeyRepeatEnabled(false);
-	m_fonts.Load(Font::kMain, "Media/Fonts/Sansation.ttf");
-	m_textures.Load(TextureID::kTitleScreen, "Media/Textures/TitleScreen.png");
-	m_textures.Load(TextureID::kButtonNormal, "Media/Textures/ButtonNormal.png");
-	m_textures.Load(TextureID::kButtonSelected, "Media/Textures/ButtonSelected.png");
-	m_textures.Load(TextureID::kButtonActivated, "Media/Textures/ButtonPressed.png");
-	m_textures.Load(TextureID::kButtons, "Media/Textures/Buttons.png");
+	window_.setKeyRepeatEnabled(false);
+	fonts_.Load(Font::kMain, "Media/Fonts/Sansation.ttf");
+	textures_.Load(TextureID::kTitleScreen, "Media/Textures/TitleScreen.png");
+	textures_.Load(TextureID::kButtonNormal, "Media/Textures/ButtonNormal.png");
+	textures_.Load(TextureID::kButtonSelected, "Media/Textures/ButtonSelected.png");
+	textures_.Load(TextureID::kButtonActivated, "Media/Textures/ButtonPressed.png");
+	textures_.Load(TextureID::kButtons, "Media/Textures/Buttons.png");
 
 	RegisterStates();
-	m_stack.PushState(StateID::kTitle);
+	stack_.PushState(StateID::kTitle);
 }
 
 void Application::Run()
 {
 	sf::Clock clock;
 	sf::Time time_since_last_update = sf::Time::Zero;
-	while (m_window.isOpen())
+	while (window_.isOpen())
 	{
 		time_since_last_update += clock.restart();
 		while(time_since_last_update > kTimePerFrame)
@@ -36,9 +36,9 @@ void Application::Run()
 			ProcessInput();
 			Update(kTimePerFrame);
 
-			if (m_stack.IsEmpty())
+			if (stack_.IsEmpty())
 			{
-				m_window.close();
+				window_.close();
 			}
 		}
 		Render();
@@ -48,32 +48,32 @@ void Application::Run()
 
 void Application::ProcessInput()
 {
-	while (const std::optional event = m_window.pollEvent()) {
-		m_stack.HandleEvent(*event);
+	while (const std::optional event = window_.pollEvent()) {
+		stack_.HandleEvent(*event);
 		if (event->is<sf::Event::Closed>()) {
-			m_window.close();
+			window_.close();
 		}
 	}
 }
 
 void Application::Update(sf::Time dt)
 {
-	m_stack.Update(dt);
+	stack_.Update(dt);
 }
 
 void Application::Render()
 {
-	m_window.clear();
-	m_stack.Draw();
-	m_window.display();
+	window_.clear();
+	stack_.Draw();
+	window_.display();
 }
 
 void Application::RegisterStates()
 {
-	m_stack.RegisterState<TitleState>(StateID::kTitle);
-	m_stack.RegisterState<MenuState>(StateID::kMenu);
-	m_stack.RegisterState<GameState>(StateID::kGame);
-	m_stack.RegisterState<PauseState>(StateID::kPause);
-	m_stack.RegisterState<SettingsState>(StateID::kSettings);
-	m_stack.RegisterState<GameOverState>(StateID::kGameOver);
+	stack_.RegisterState<TitleState>(StateID::kTitle);
+	stack_.RegisterState<MenuState>(StateID::kMenu);
+	stack_.RegisterState<GameState>(StateID::kGame);
+	stack_.RegisterState<PauseState>(StateID::kPause);
+	stack_.RegisterState<SettingsState>(StateID::kSettings);
+	stack_.RegisterState<GameOverState>(StateID::kGameOver);
 }

@@ -3,6 +3,7 @@
 #include "ParticleType.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "Particle.hpp"
+#include <deque>
 
 class ParticleNode : public SceneNode
 {
@@ -20,12 +21,12 @@ private:
 	void ComputeVertices() const;
 
 private:
-	std::deque<Particle> m_particles;
-	const sf::Texture& m_texture;
-	ParticleType m_type;
+	std::deque<Particle> particles_;
+	const sf::Texture& texture_;
+	ParticleType type_;
 
-	mutable sf::VertexArray m_vertex_array;
-	mutable bool m_needs_vertex_update;
+	mutable sf::VertexArray vertex_array_;
+	mutable bool needs_vertex_update_;
 
 };
 

@@ -19,7 +19,7 @@ namespace gui
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
-		sf::Text m_text;
+		sf::Text text_;
 
 	};
 }

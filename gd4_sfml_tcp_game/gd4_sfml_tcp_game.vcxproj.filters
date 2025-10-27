@@ -128,175 +128,175 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.hpp">
+    <ClInclude Include="game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.hpp">
+    <ClInclude Include="constants.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.hpp">
+    <ClInclude Include="utility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureID.hpp">
+    <ClInclude Include="texture_id.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureHolder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceHolder.hpp">
+    <ClInclude Include="resource_holder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceIdentifiers.hpp">
+    <ClInclude Include="resource_identifiers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.hpp">
+    <ClInclude Include="entity.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AircraftType.hpp">
+    <ClInclude Include="aircraft_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aircraft.hpp">
+    <ClInclude Include="aircraft.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SceneNode.hpp">
+    <ClInclude Include="scene_node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SceneLayers.hpp">
+    <ClInclude Include="scene_layers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteNode.hpp">
+    <ClInclude Include="sprite_node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="World.hpp">
+    <ClInclude Include="world.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Command.hpp">
+    <ClInclude Include="command.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ReceiverCategories.hpp">
+    <ClInclude Include="receiver_categories.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CommandQueue.hpp">
+    <ClInclude Include="command_queue.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.hpp">
+    <ClInclude Include="player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Action.hpp">
+    <ClInclude Include="action.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StackAction.hpp">
+    <ClInclude Include="stack_action.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StateStack.hpp">
+    <ClInclude Include="state_stack.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StateID.hpp">
+    <ClInclude Include="state_id.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="State.hpp">
+    <ClInclude Include="state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Font.hpp">
+    <ClInclude Include="font.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Application.hpp">
+    <ClInclude Include="application.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.hpp">
+    <ClInclude Include="game_state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TitleState.hpp">
+    <ClInclude Include="title_state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuState.hpp">
+    <ClInclude Include="menu_state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuOptions.hpp">
+    <ClInclude Include="menu_options.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PauseState.hpp">
+    <ClInclude Include="pause_state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Component.hpp">
+    <ClInclude Include="component.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Container.hpp">
+    <ClInclude Include="container.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Button.hpp">
+    <ClInclude Include="button.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Label.hpp">
+    <ClInclude Include="label.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SettingsState.hpp">
+    <ClInclude Include="settings_state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataTables.hpp">
+    <ClInclude Include="data_tables.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextNode.hpp">
+    <ClInclude Include="text_node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.hpp">
+    <ClInclude Include="projectile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectileType.hpp">
+    <ClInclude Include="projectile_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PickupType.hpp">
+    <ClInclude Include="pickup_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pickup.hpp">
+    <ClInclude Include="pickup.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MissionStatus.hpp">
+    <ClInclude Include="mission_status.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameOverState.hpp">
+    <ClInclude Include="game_over_state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleType.hpp">
+    <ClInclude Include="particle_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.hpp">
+    <ClInclude Include="particle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleNode.hpp">
+    <ClInclude Include="particle_node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterNode.hpp">
+    <ClInclude Include="emitter_node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.hpp">
+    <ClInclude Include="animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PostEffect.hpp">
+    <ClInclude Include="post_effect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BloomEffect.hpp">
+    <ClInclude Include="bloom_effect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderTypes.hpp">
+    <ClInclude Include="shader_types.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MusicThemes.hpp">
+    <ClInclude Include="music_themes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MusicPlayer.hpp">
+    <ClInclude Include="music_player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundEffect.hpp">
+    <ClInclude Include="sound_effect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundPlayer.hpp">
+    <ClInclude Include="sound_player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonType.hpp">
+    <ClInclude Include="button_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundNode.hpp">
+    <ClInclude Include="sound_node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

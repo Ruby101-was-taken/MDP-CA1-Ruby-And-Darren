@@ -32,10 +32,10 @@ private:
 
 
 private:
-	ShaderHolder		m_shaders;
+	ShaderHolder		shaders_;
 
-	sf::RenderTexture	m_brightness_texture;
-	RenderTextureArray	m_firstpass_textures;
-	RenderTextureArray	m_secondpass_textures;
+	sf::RenderTexture	brightness_texture_;
+	RenderTextureArray	firstpass_textures_;
+	RenderTextureArray	secondpass_textures_;
 };
 

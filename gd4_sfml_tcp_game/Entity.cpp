@@ -1,66 +1,66 @@
 #include "Entity.hpp"
 
 Entity::Entity(int hitpoints)
-    :m_hitpoints(hitpoints)
+    :hitpoints_(hitpoints)
 {
 }
 
 void Entity::SetVelocity(sf::Vector2f velocity)
 {
-    m_velocity = velocity;
+    velocity_ = velocity;
 }
 
 void Entity::SetVelocity(float vx, float vy)
 {
-    m_velocity.x = vx;
-    m_velocity.y = vy;
+    velocity_.x = vx;
+    velocity_.y = vy;
 }
 
 sf::Vector2f Entity::GetVelocity() const
 {
-    return m_velocity;
+    return velocity_;
 }
 
 void Entity::Accelerate(sf::Vector2f velocity)
 {
-    m_velocity += velocity;
+    velocity_ += velocity;
 }
 
 void Entity::Accelerate(float vx, float vy)
 {
-    m_velocity.x += vx;
-    m_velocity.y += vy;
+    velocity_.x += vx;
+    velocity_.y += vy;
 }
 
 int Entity::GetHitPoints() const
 {
-    return m_hitpoints;
+    return hitpoints_;
 }
 
 void Entity::Repair(int points)
 {
     assert(points > 0);
     //TODO Limit hitpoints
-    m_hitpoints += points;
+    hitpoints_ += points;
 }
 
 void Entity::Damage(int points)
 {
     assert(points > 0);
-    m_hitpoints -= points;
+    hitpoints_ -= points;
 }
 
 void Entity::Destroy()
 {
-    m_hitpoints = 0;
+    hitpoints_ = 0;
 }
 
 bool Entity::IsDestroyed() const
 {
-    return m_hitpoints <= 0;
+    return hitpoints_ <= 0;
 }
 
 void Entity::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 {
-    move(m_velocity * dt.asSeconds());
+    move(velocity_ * dt.asSeconds());
 }

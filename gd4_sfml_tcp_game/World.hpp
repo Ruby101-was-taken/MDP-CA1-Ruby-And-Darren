@@ -1,15 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "ResourceIdentifiers.hpp"
-#include "ResourceHolder.hpp"
-#include "SceneNode.hpp"
-#include "SceneLayers.hpp"
-#include "Aircraft.hpp"
-#include "TextureID.hpp"
-#include "SpriteNode.hpp"
-#include "CommandQueue.hpp"
-#include "BloomEffect.hpp"
-#include "SoundPlayer.hpp"
+#include "resource_identifiers.hpp"
+#include "resource_holder.hpp"
+#include "scene_node.hpp"
+#include "scene_layers.hpp"
+#include "aircraft.hpp"
+#include "texture_id.hpp"
+#include "sprite_node.hpp"
+#include "command_queue.hpp"
+#include "bloom_effect.hpp"
+#include "sound_player.hpp"
 
 #include <array>
 

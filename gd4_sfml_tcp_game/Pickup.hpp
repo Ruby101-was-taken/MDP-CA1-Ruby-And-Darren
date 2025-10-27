@@ -15,7 +15,7 @@ public:
 	virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	PickupType m_type;
-	sf::Sprite m_sprite;
+	PickupType type_;
+	sf::Sprite sprite_;
 };
 

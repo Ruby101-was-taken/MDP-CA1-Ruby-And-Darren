@@ -1,20 +1,22 @@
 #pragma once
 #include "State.hpp"
+#include "MenuOptions.hpp"
+#include "Container.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <vector>
 
-class PauseState : public State
+
+class MenuState : public State
 {
 public:
-	PauseState(StateStack& stack, Context context);
-	~PauseState();
+	MenuState(StateStack& stack, Context context);
 	virtual void Draw() override;
 	virtual bool Update(sf::Time dt) override;
 	virtual bool HandleEvent(const sf::Event& event) override;
 
 private:
-	sf::Sprite m_background_sprite;
-	sf::Text m_paused_text;
-	sf::Text m_instruction_text;
+	sf::Sprite background_sprite_;
+	gui::Container gui_container_;
 };
 

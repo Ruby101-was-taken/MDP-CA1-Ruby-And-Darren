@@ -17,7 +17,7 @@ public:
 
 
 private:
-	std::map<Identifier, std::unique_ptr<Resource>> m_resource_map;
+	std::map<Identifier, std::unique_ptr<Resource>> resource_map_;
 };
 
 #include "ResourceHolder.inl"

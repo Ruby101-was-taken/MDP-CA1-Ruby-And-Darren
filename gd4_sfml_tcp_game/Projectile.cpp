@@ -11,9 +11,9 @@ namespace
 }
 
 Projectile::Projectile(ProjectileType type, const TextureHolder& textures)
-    : Entity(1), m_type(type), m_sprite(textures.Get(Table[static_cast<int>(type)].m_texture), Table[static_cast<int>(type)].m_texture_rect)
+    : Entity(1), type_(type), sprite_(textures.Get(Table[static_cast<int>(type)].m_texture), Table[static_cast<int>(type)].m_texture_rect)
 {
-    Utility::CentreOrigin(m_sprite);
+    Utility::CentreOrigin(sprite_);
 
     //Add particle system for missiles
     if (IsGuided())
@@ -31,17 +31,17 @@ Projectile::Projectile(ProjectileType type, const TextureHolder& textures)
 void Projectile::GuideTowards(sf::Vector2f position)
 {
     assert(IsGuided());
-    m_target_direction = Utility::UnitVector(position - GetWorldPosition());
+    target_direction_ = Utility::UnitVector(position - GetWorldPosition());
 }
 
 bool Projectile::IsGuided() const
 {
-    return m_type == ProjectileType::kMissile;
+    return type_ == ProjectileType::kMissile;
 }
 
 unsigned int Projectile::GetCategory() const
 {
-    if (m_type == ProjectileType::kEnemyBullet)
+    if (type_ == ProjectileType::kEnemyBullet)
     {
         return static_cast<int>(ReceiverCategories::kEnemyProjectile);
     }
@@ -51,17 +51,17 @@ unsigned int Projectile::GetCategory() const
  
 sf::FloatRect Projectile::GetBoundingRect() const
 {
-    return GetWorldTransform().transformRect(m_sprite.getGlobalBounds());
+    return GetWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
 float Projectile::GetMaxSpeed() const
 {
-    return Table[static_cast<int>(m_type)].m_speed;
+    return Table[static_cast<int>(type_)].m_speed;
 }
 
 float Projectile::GetDamage() const
 {
-    return Table[static_cast<int>(m_type)].m_damage;
+    return Table[static_cast<int>(type_)].m_damage;
 }
 
 void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
@@ -69,7 +69,7 @@ void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
     if (IsGuided())
     {
         const float approach_rate = 200;
-        sf::Vector2f new_velocity = Utility::UnitVector(approach_rate * dt.asSeconds() * m_target_direction + GetVelocity());
+        sf::Vector2f new_velocity = Utility::UnitVector(approach_rate * dt.asSeconds() * target_direction_ + GetVelocity());
         new_velocity *= GetMaxSpeed();
         float angle = std::atan2(new_velocity.y, new_velocity.x);
         setRotation(sf::radians(angle) + sf::degrees(90.f));
@@ -80,5 +80,5 @@ void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 
 void Projectile::DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(m_sprite, states);
+    target.draw(sprite_, states);
 }

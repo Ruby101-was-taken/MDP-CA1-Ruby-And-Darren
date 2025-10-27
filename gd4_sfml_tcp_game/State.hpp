@@ -1,11 +1,11 @@
 #pragma once
-#include "ResourceIdentifiers.hpp"
-#include "StateID.hpp"
+#include "resource_identifiers.hpp"
+#include "state_id.hpp"
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
 #include <memory>
-#include "MusicPlayer.hpp"
-#include "SoundPlayer.hpp"
+#include "music_player.hpp"
+#include "sound_player.hpp"
 
 namespace sf
 {
@@ -47,7 +47,7 @@ protected:
 	Context GetContext() const;
 
 private:
-	StateStack* m_stack;
-	Context m_context;
+	StateStack* stack_;
+	Context context_;
 };
 

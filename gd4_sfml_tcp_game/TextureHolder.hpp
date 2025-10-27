@@ -13,6 +13,6 @@ public:
 	const sf::Texture& Get(TextureID id) const;
 
 private:
-	std::map<TextureID, std::unique_ptr<sf::Texture>> m_texture_map;
+	std::map<TextureID, std::unique_ptr<sf::Texture>> texture_map_;
 };
 

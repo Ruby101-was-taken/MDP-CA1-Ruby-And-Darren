@@ -10,6 +10,6 @@ public:
 	bool IsEmpty() const;
 
 private:
-	std::queue<Command> m_queue;
+	std::queue<Command> queue_;
 };
 

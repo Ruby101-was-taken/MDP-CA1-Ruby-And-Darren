@@ -13,8 +13,8 @@ private:
 	void EmitParticles(sf::Time dt);
 
 private:
-	sf::Time m_accumulated_time;
-	ParticleType m_type;
-	ParticleNode* m_particle_system;
+	sf::Time accumulated_time_;
+	ParticleType type_;
+	ParticleNode* particle_system_;
 };
 

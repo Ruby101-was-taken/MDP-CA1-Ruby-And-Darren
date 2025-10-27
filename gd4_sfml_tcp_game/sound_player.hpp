@@ -1,11 +1,12 @@
 #pragma once
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "resource_holder.hpp"
+#include "resource_identifiers.hpp"
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Audio/Sound.hpp>
 
+#include "sound_effect.hpp"
 #include <list>
 
 class SoundPlayer
@@ -22,6 +23,6 @@ public:
 
 
 private:
-	SoundBufferHolder m_sound_buffers;
-	std::list<sf::Sound> m_sounds;
+	SoundBufferHolder sound_buffers_;
+	std::list<sf::Sound> sounds_;
 };

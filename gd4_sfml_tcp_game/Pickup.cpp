@@ -11,10 +11,10 @@ namespace
 
 Pickup::Pickup(PickupType type, const TextureHolder& textures)
     : Entity(1)
-    , m_type(type)
-    , m_sprite(textures.Get(Table[static_cast<int>(type)].m_texture), Table[static_cast<int>(type)].m_texture_rect)
+    , type_(type)
+    , sprite_(textures.Get(Table[static_cast<int>(type)].m_texture), Table[static_cast<int>(type)].m_texture_rect)
 {
-    Utility::CentreOrigin(m_sprite);
+    Utility::CentreOrigin(sprite_);
 }
 
 unsigned int Pickup::GetCategory() const
@@ -24,15 +24,15 @@ unsigned int Pickup::GetCategory() const
 
 sf::FloatRect Pickup::GetBoundingRect() const
 {
-    return GetWorldTransform().transformRect(m_sprite.getGlobalBounds());
+    return GetWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
 void Pickup::Apply(Aircraft& player) const
 {
-    Table[static_cast<int>(m_type)].m_action(player);
+    Table[static_cast<int>(type_)].m_action(player);
 }
 
 void Pickup::DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(m_sprite, states);
+    target.draw(sprite_, states);
 }

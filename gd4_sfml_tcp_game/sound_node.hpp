@@ -1,7 +1,7 @@
 #pragma once
-#include "SceneNode.hpp"
-#include "ResourceIdentifiers.hpp"
-
+#include "scene_node.hpp"
+#include "resource_identifiers.hpp"
+#include "sound_effect.hpp"
 
 class SoundPlayer;
 
@@ -15,6 +15,6 @@ public:
 
 
 private:
-	SoundPlayer& m_sounds;
+	SoundPlayer& sounds_;
 };
 

@@ -37,13 +37,13 @@ private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	std::unique_ptr<sf::Sprite> m_sprite;
-	sf::Vector2i m_frame_size;
-	std::size_t m_num_frames;
-	std::size_t m_current_frame;
-	sf::Time m_duration;
-	sf::Time m_elapsed_time;
-	bool m_repeat;
+	std::unique_ptr<sf::Sprite> sprite_;
+	sf::Vector2i frame_size_;
+	std::size_t num_frames_;
+	std::size_t current_frame_;
+	sf::Time duration_;
+	sf::Time elapsed_time_;
+	bool repeat_;
 
 };
 

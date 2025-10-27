@@ -15,23 +15,23 @@ void ResourceHolder<Identifier, Resource>::Load(Identifier id, const std::string
 	if (!loaded)
 		throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
 
-	auto inserted = m_resource_map.insert(std::make_pair(id, std::move(resource)));
+	auto inserted = resource_map_.insert(std::make_pair(id, std::move(resource)));
 	assert(inserted.second);
 }
 
 template <typename Identifier, typename Resource>
 Resource& ResourceHolder<Identifier, Resource>::Get(Identifier id)
 {
-	auto found = m_resource_map.find(id);
-	assert(found != m_resource_map.end());
+	auto found = resource_map_.find(id);
+	assert(found != resource_map_.end());
 	return *found->second;
 }
 
 template <typename Identifier, typename Resource>
 const Resource& ResourceHolder<Identifier, Resource>::Get(Identifier id) const
 {
-	auto found = m_resource_map.find(id);
-	assert(found != m_resource_map.end());
+	auto found = resource_map_.find(id);
+	assert(found != resource_map_.end());
 	return *found->second;
 }
 
@@ -43,6 +43,6 @@ void ResourceHolder<Identifier, Resource>::Load(Identifier id, const std::string
 	if (!resource->loadFromFile(filename, second_param))
 		throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
 
-	auto inserted = m_resource_map.insert(std::make_pair(id, std::move(resource)));
+	auto inserted = resource_map_.insert(std::make_pair(id, std::move(resource)));
 	assert(inserted.second);
 }
