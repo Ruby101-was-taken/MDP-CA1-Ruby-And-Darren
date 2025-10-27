@@ -30,25 +30,25 @@ sf::Vector2f Utility::UnitVector(const sf::Vector2f& source)
 void Utility::CentreOrigin(sf::Sprite& sprite)
 {
     sf::FloatRect bounds = sprite.getLocalBounds();
-    sprite.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+	sprite.setOrigin({ std::floor(bounds.position.x + bounds.size.x / 2.f), std::floor(bounds.position.y + bounds.size.y / 2.f) });
 }
 
 void Utility::CentreOrigin(sf::Text& text)
 {
     sf::FloatRect bounds = text.getLocalBounds();
-    text.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+    text.setOrigin({ std::floor(bounds.position.x + bounds.size.x / 2.f), std::floor(bounds.position.y + bounds.size.y / 2.f) });
 }
 
 void Utility::CentreOrigin(Animation& animation)
 {
 	sf::FloatRect bounds = animation.GetLocalBounds();
-	animation.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+	animation.setOrigin({ std::floor(bounds.position.x + bounds.size.x / 2.f), std::floor(bounds.position.y + bounds.size.y / 2.f) });
 }
 
 
 std::string Utility::toString(sf::Keyboard::Key key)
 {
-#define KEYTOSTRING_CASE(KEY) case sf::Keyboard::KEY: return #KEY;
+#define KEYTOSTRING_CASE(KEY) case sf::Keyboard::Key::KEY: return #KEY;
 
 	switch (key)
 	{
@@ -101,18 +101,18 @@ std::string Utility::toString(sf::Keyboard::Key key)
 			KEYTOSTRING_CASE(Menu)
 			KEYTOSTRING_CASE(LBracket)
 			KEYTOSTRING_CASE(RBracket)
-			KEYTOSTRING_CASE(SemiColon)
+			KEYTOSTRING_CASE(Semicolon)
 			KEYTOSTRING_CASE(Comma)
 			KEYTOSTRING_CASE(Period)
-			KEYTOSTRING_CASE(Quote)
+			KEYTOSTRING_CASE(Apostrophe)
 			KEYTOSTRING_CASE(Slash)
-			KEYTOSTRING_CASE(BackSlash)
-			KEYTOSTRING_CASE(Tilde)
+			KEYTOSTRING_CASE(Backslash)
+			KEYTOSTRING_CASE(Grave)
 			KEYTOSTRING_CASE(Equal)
-			KEYTOSTRING_CASE(Dash)
+			KEYTOSTRING_CASE(Hyphen)
 			KEYTOSTRING_CASE(Space)
-			KEYTOSTRING_CASE(Return)
-			KEYTOSTRING_CASE(BackSpace)
+			KEYTOSTRING_CASE(Enter)
+			KEYTOSTRING_CASE(Backspace)
 			KEYTOSTRING_CASE(Tab)
 			KEYTOSTRING_CASE(PageUp)
 			KEYTOSTRING_CASE(PageDown)

@@ -5,8 +5,9 @@
 SettingsState::SettingsState(StateStack& stack, Context context)
 	: State(stack, context)
 	, m_gui_container()
+	, m_background_sprite(context.textures->Get(TextureID::kTitleScreen))
 {
-	m_background_sprite.setTexture(context.textures->Get(TextureID::kTitleScreen));
+	//m_background_sprite.setTexture();
 
 	//Build key binding buttons and labels
 	AddButtonLabel(Action::kMoveUp, 150.f, "Move Up", context);
@@ -19,7 +20,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 	UpdateLabels();
 
 	auto back_button = std::make_shared<gui::Button>(context);
-	back_button->setPosition(80.f, 475.f);
+	back_button->setPosition({ 80.f, 475.f });
 	back_button->SetText("Back");
 	back_button->SetCallback(std::bind(&SettingsState::RequestStackPop, this));
 	m_gui_container.Pack(back_button);
@@ -47,9 +48,9 @@ bool SettingsState::HandleEvent(const sf::Event& event)
 		if (m_binding_buttons[action]->IsActive())
 		{
 			is_key_binding = true;
-			if (event.type == sf::Event::KeyReleased)
+			if (const auto* keyReleased = event.getIf<sf::Event::KeyReleased>())
 			{
-				GetContext().player->AssignKey(static_cast<Action>(action), event.key.code);
+				GetContext().player->AssignKey(static_cast<Action>(action), keyReleased->code);
 				m_binding_buttons[action]->Deactivate();
 			}
 			break;
@@ -81,12 +82,12 @@ void SettingsState::UpdateLabels()
 void SettingsState::AddButtonLabel(Action action, float y, const std::string& text, Context context)
 {
 	m_binding_buttons[static_cast<int>(action)] = std::make_shared<gui::Button>(context);
-	m_binding_buttons[static_cast<int>(action)]->setPosition(80.f, y);
+	m_binding_buttons[static_cast<int>(action)]->setPosition({ 80.f, y });
 	m_binding_buttons[static_cast<int>(action)]->SetText(text);
 	m_binding_buttons[static_cast<int>(action)]->SetToggle(true);
 
 	m_binding_labels[static_cast<int>(action)] = std::make_shared<gui::Label>("", *context.fonts);
-	m_binding_labels[static_cast<int>(action)]->setPosition(300.f, y + 15.f);
+	m_binding_labels[static_cast<int>(action)]->setPosition({ 300.f, y + 15.f });
 
 	m_gui_container.Pack(m_binding_buttons[static_cast<int>(action)]);
 	m_gui_container.Pack(m_binding_labels[static_cast<int>(action)]);

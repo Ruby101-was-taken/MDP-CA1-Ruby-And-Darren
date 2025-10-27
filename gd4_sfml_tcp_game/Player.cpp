@@ -17,12 +17,12 @@ struct AircraftMover
 Player::Player(): m_current_mission_status(MissionStatus::kMissionRunning)
 {
     //Set initial key bindings
-    m_key_binding[sf::Keyboard::A] = Action::kMoveLeft;
-    m_key_binding[sf::Keyboard::D] = Action::kMoveRight;
-    m_key_binding[sf::Keyboard::W] = Action::kMoveUp;
-    m_key_binding[sf::Keyboard::S] = Action::kMoveDown;
-    m_key_binding[sf::Keyboard::M] = Action::kMissileFire;
-    m_key_binding[sf::Keyboard::Space] = Action::kBulletFire;
+    m_key_binding[sf::Keyboard::Key::A] = Action::kMoveLeft;
+    m_key_binding[sf::Keyboard::Key::D] = Action::kMoveRight;
+    m_key_binding[sf::Keyboard::Key::W] = Action::kMoveUp;
+    m_key_binding[sf::Keyboard::Key::S] = Action::kMoveDown;
+    m_key_binding[sf::Keyboard::Key::M] = Action::kMissileFire;
+    m_key_binding[sf::Keyboard::Key::Space] = Action::kBulletFire;
 
     //Set initial action bindings
     InitialiseActions();
@@ -36,9 +36,9 @@ Player::Player(): m_current_mission_status(MissionStatus::kMissionRunning)
 
 void Player::HandleEvent(const sf::Event& event, CommandQueue& command_queue)
 {
-    if (event.type == sf::Event::KeyPressed)
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
-        auto found = m_key_binding.find(event.key.code);
+        auto found = m_key_binding.find(keyPressed->code);
         if (found != m_key_binding.end() && !IsRealTimeAction(found->second))
         {
             command_queue.Push(m_action_binding[found->second]);
@@ -84,7 +84,7 @@ sf::Keyboard::Key Player::GetAssignedKey(Action action) const
             return pair.first;
         }
     }
-    return sf::Keyboard::Unknown;
+    return sf::Keyboard::Key::Unknown;
 }
 
 void Player::SetMissionStatus(MissionStatus status)

@@ -28,7 +28,7 @@ SoundPlayer::SoundPlayer()
 	m_sound_buffers.Load(SoundEffect::kButton, "Media/Sound/Button.wav");
 
 	// Listener points towards the screen (default in SFML)
-	sf::Listener::setDirection(0.f, 0.f, -1.f);
+	sf::Listener::setDirection({ 0.f, 0.f, -1.f });
 }
 
 void SoundPlayer::Play(SoundEffect effect)
@@ -38,11 +38,11 @@ void SoundPlayer::Play(SoundEffect effect)
 
 void SoundPlayer::Play(SoundEffect effect, sf::Vector2f position)
 {
-	m_sounds.emplace_back(sf::Sound());
+	m_sounds.emplace_back(m_sound_buffers.Get(effect));
 	sf::Sound& sound = m_sounds.back();
 
 	sound.setBuffer(m_sound_buffers.Get(effect));
-	sound.setPosition(position.x, -position.y, 0.f);
+	sound.setPosition({ position.x, -position.y, 0.f });
 	sound.setAttenuation(Attenuation);
 	sound.setMinDistance(MinDistance3D);
 	sound.setVolume(100.f);
@@ -54,13 +54,13 @@ void SoundPlayer::RemoveStoppedSounds()
 {
 	m_sounds.remove_if([](const sf::Sound& s)
 		{
-			return s.getStatus() == sf::Sound::Stopped;
+			return s.getStatus() == sf::Sound::Status::Stopped;
 		});
 }
 
 void SoundPlayer::SetListenerPosition(sf::Vector2f position)
 {
-	sf::Listener::setPosition(position.x, -position.y, ListenerZ);
+	sf::Listener::setPosition({ position.x, -position.y, ListenerZ });
 }
 
 sf::Vector2f SoundPlayer::GetListenerPosition() const

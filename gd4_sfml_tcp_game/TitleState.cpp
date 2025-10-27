@@ -3,10 +3,15 @@
 #include "ResourceHolder.hpp"
 #include "Utility.hpp"
 
-TitleState::TitleState(StateStack& stack, Context context) : State(stack, context), m_show_text(true), m_text_effect_time(sf::Time::Zero)
+TitleState::TitleState(StateStack& stack, Context context)
+    : State(stack, context)
+    , m_show_text(true)
+    , m_text_effect_time(sf::Time::Zero)
+    , m_background_sprite(context.textures->Get(TextureID::kTitleScreen))
+    , m_text(context.fonts->Get(Font::kMain))
 {
-    m_background_sprite.setTexture(context.textures->Get(TextureID::kTitleScreen));
-    m_text.setFont(context.fonts->Get(Font::kMain));
+    //m_background_sprite.setTexture(context.textures->Get(TextureID::kTitleScreen));
+    //m_text.setFont(context.fonts->Get(Font::kMain));
     m_text.setString("Press any key to continue");
     Utility::CentreOrigin(m_text);
     m_text.setPosition(context.window->getView().getSize() / 2.f);
@@ -37,7 +42,7 @@ bool TitleState::Update(sf::Time dt)
 
 bool TitleState::HandleEvent(const sf::Event& event)
 {
-    if (event.type == sf::Event::KeyPressed)
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
         RequestStackPop();
         RequestStackPush(StateID::kMenu);

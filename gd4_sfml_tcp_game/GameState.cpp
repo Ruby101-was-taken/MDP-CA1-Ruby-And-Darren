@@ -39,9 +39,9 @@ bool GameState::HandleEvent(const sf::Event& event)
 
 	//Escape should bring up the pause menu
 	
-	if (auto key = event.getIf<sf::Event::KeyPressed>())
+	if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
 	{
-		if(key->scancode == sf::Keyboard::Scancode::Escape)
+		if(keyPressed->scancode == sf::Keyboard::Scancode::Escape)
 			RequestStackPush(StateID::kPause);
 	}
 	return true;

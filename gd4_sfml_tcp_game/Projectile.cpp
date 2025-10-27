@@ -19,11 +19,11 @@ Projectile::Projectile(ProjectileType type, const TextureHolder& textures)
     if (IsGuided())
     {
         std::unique_ptr<EmitterNode> smoke(new EmitterNode(ParticleType::kSmoke));
-        smoke->setPosition(0.f, GetBoundingRect().height / 2.f);
+        smoke->setPosition({ 0.f, GetBoundingRect().size.y / 2.f });
         AttachChild(std::move(smoke));
 
         std::unique_ptr<EmitterNode> propellant(new EmitterNode(ParticleType::kPropellant));
-        propellant->setPosition(0.f, GetBoundingRect().height / 2.f);
+        propellant->setPosition({0.f, GetBoundingRect().size.y / 2.f});
         AttachChild(std::move(propellant));
     }
 }
@@ -72,7 +72,7 @@ void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
         sf::Vector2f new_velocity = Utility::UnitVector(approach_rate * dt.asSeconds() * m_target_direction + GetVelocity());
         new_velocity *= GetMaxSpeed();
         float angle = std::atan2(new_velocity.y, new_velocity.x);
-        setRotation(Utility::ToDegrees(angle) + 90.f);
+        setRotation(sf::radians(angle) + sf::degrees(90.f));
         SetVelocity(new_velocity);
     }
     Entity::UpdateCurrent(dt, commands);

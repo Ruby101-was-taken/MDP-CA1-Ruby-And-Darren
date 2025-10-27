@@ -3,8 +3,10 @@
 #include "Utility.hpp"
 
 TextNode::TextNode(const FontHolder& fonts, std::string& text)
-	:m_text(text, fonts.Get(Font::kMain), 20)
+	:m_text(fonts.Get(Font::kMain))
 {
+	m_text.setString(text);
+	m_text.setCharacterSize(20);
 }
 
 void TextNode::SetString(const std::string& text)

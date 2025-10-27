@@ -4,7 +4,7 @@ template <typename Identifier, typename Resource>
 void ResourceHolder<Identifier, Resource>::Load(Identifier id, const std::string& filename)
 {
 	// Create and load resource
-	std::unique_ptr<Resource> resource(new Resource());
+	std::unique_ptr<Resource> resource = std::make_unique<Resource>();
 	if (!resource->loadFromFile(filename))
 		throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
 

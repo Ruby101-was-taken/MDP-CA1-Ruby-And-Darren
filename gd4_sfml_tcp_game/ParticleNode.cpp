@@ -14,7 +14,7 @@ ParticleNode::ParticleNode(ParticleType type, const TextureHolder& textures)
     : SceneNode()
     , m_texture(textures.Get(TextureID::kParticle))
     , m_type(type)
-    , m_vertex_array(sf::TriangleStrip)
+    , m_vertex_array(sf::PrimitiveType::TriangleStrip)
     , m_needs_vertex_update(true)
 {
 }
@@ -93,7 +93,7 @@ void ParticleNode::ComputeVertices() const
         sf::Color color = particle.m_color;
 
         float ratio = particle.m_lifetime.asSeconds() / Table[static_cast<int>(m_type)].m_lifetime.asSeconds();
-        color.a = static_cast<sf::Uint8>(255 * std::max(ratio, 0.f));
+        color.a = static_cast<uint8_t>(255 * std::max(ratio, 0.f));
 
         AddVertex(pos.x - half.x, pos.y - half.y, 0.f, 0.f, color);
         AddVertex(pos.x + half.x, pos.y - half.y, size.x, 0.f, color);

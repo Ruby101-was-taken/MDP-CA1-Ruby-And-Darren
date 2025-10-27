@@ -12,12 +12,12 @@ World::World(sf::RenderTarget& output_target, FontHolder& font, SoundPlayer& sou
 	,m_sounds(sounds)
 	,m_scenegraph(ReceiverCategories::kNone)
 	,m_scene_layers()
-	,m_world_bounds(0.f,0.f, m_camera.getSize().x, 3000.f)
-	,m_spawn_position(m_camera.getSize().x/2.f, m_world_bounds.height - m_camera.getSize().y/2.f)
+	,m_world_bounds({ 0.f,0.f }, { m_camera.getSize().x, 3000.f })
+	,m_spawn_position(m_camera.getSize().x/2.f, m_world_bounds.size.y - m_camera.getSize().y/2.f)
 	,m_scrollspeed(-50.f)
 	,m_player_aircraft(nullptr)
+	,m_scene_texture({ m_target.getSize().x, m_target.getSize().y })
 {
-	m_scene_texture.create(m_target.getSize().x, m_target.getSize().y);
 	LoadTextures();
 	BuildScene();
 	m_camera.setCenter(m_spawn_position);
@@ -26,7 +26,7 @@ World::World(sf::RenderTarget& output_target, FontHolder& font, SoundPlayer& sou
 void World::Update(sf::Time dt)
 {
 	//Scroll the world
-	m_camera.move(0, m_scrollspeed * dt.asSeconds());
+	m_camera.move({ 0, m_scrollspeed * dt.asSeconds() });
 	
 	m_player_aircraft->SetVelocity(0.f, 0.f);
 
@@ -123,13 +123,13 @@ void World::BuildScene()
 
 	//Add the background sprite to the world
 	std::unique_ptr<SpriteNode> background_sprite(new SpriteNode(texture, textureRect));
-	background_sprite->setPosition(m_world_bounds.left, m_world_bounds.top);
+	background_sprite->setPosition({ m_world_bounds.position.x, m_world_bounds.position.y });
 	m_scene_layers[static_cast<int>(SceneLayers::kBackground)]->AttachChild(std::move(background_sprite));
 
 	//Add the finish line
 	sf::Texture& finish_texture = m_textures.Get(TextureID::kFinishLine);
 	std::unique_ptr<SpriteNode> finish_sprite(new SpriteNode(finish_texture));
-	finish_sprite->setPosition(0.f, -76.f);
+	finish_sprite->setPosition({ 0.f, -76.f });
 	m_scene_layers[static_cast<int>(SceneLayers::kBackground)]->AttachChild(std::move(finish_sprite));
 
 	//Add the player's aircraft
@@ -168,10 +168,10 @@ void World::AdaptPlayerPosition()
 	const float border_distance = 40.f;
 
 	sf::Vector2f position = m_player_aircraft->getPosition();
-	position.x = std::max(position.x, view_bounds.left + border_distance);
-	position.x = std::min(position.x, view_bounds.left + view_bounds.width - border_distance);
-	position.y = std::max(position.y, view_bounds.top + border_distance);
-	position.y = std::min(position.y, view_bounds.top + view_bounds.height -border_distance);
+	position.x = std::max(position.x, view_bounds.position.x + border_distance);
+	position.x = std::min(position.x, view_bounds.position.x + view_bounds.size.x - border_distance);
+	position.y = std::max(position.y, view_bounds.position.y + border_distance);
+	position.y = std::min(position.y, view_bounds.position.y + view_bounds.size.y -border_distance);
 	m_player_aircraft->setPosition(position);
 }
 
@@ -191,12 +191,12 @@ void World::AdaptPlayerVelocity()
 void World::SpawnEnemies()
 {
 	//Spawn an enemy when it is relevant i.e when it is in the Battlefieldboudns
-	while (!m_enemy_spawn_points.empty() && m_enemy_spawn_points.back().m_y > GetBattleFieldBounds().top)
+	while (!m_enemy_spawn_points.empty() && m_enemy_spawn_points.back().m_y > GetBattleFieldBounds().position.y)
 	{
 		SpawnPoint spawn = m_enemy_spawn_points.back();
 		std::unique_ptr<Aircraft> enemy(new Aircraft(spawn.m_type, m_textures, m_fonts));
-		enemy->setPosition(spawn.m_x, spawn.m_y);
-		enemy->setRotation(180.f);
+		enemy->setPosition({ spawn.m_x, spawn.m_y });
+		enemy->setRotation(sf::degrees(180.f));
 		m_scene_layers[static_cast<int>(SceneLayers::kUpperAir)]->AttachChild(std::move(enemy));
 		m_enemy_spawn_points.pop_back();
 	}
@@ -235,8 +235,8 @@ sf::FloatRect World::GetBattleFieldBounds() const
 {
 	//Return camera bounds + a small area at the top where enemies spawn
 	sf::FloatRect bounds = GetViewBounds();
-	bounds.top -= 100.f;
-	bounds.height += 100.f;
+	bounds.position.y -= 100.f;
+	bounds.size.y += 100.f;
 
 	return bounds;
 
@@ -249,7 +249,7 @@ void World::DestroyEntitiesOutsideView()
 	command.action = DerivedAction<Entity>([this](Entity& e, sf::Time dt)
 		{
 			//Does the object intersect with the battlefield
-			if (!GetBattleFieldBounds().intersects(e.GetBoundingRect()))
+			if (!GetBattleFieldBounds().findIntersection(e.GetBoundingRect()).has_value())
 			{
 				e.Destroy();
 			}

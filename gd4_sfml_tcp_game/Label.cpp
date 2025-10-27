@@ -2,8 +2,10 @@
 #include "ResourceHolder.hpp"
 
 gui::Label::Label(const std::string& text, const FontHolder& fonts)
-    :m_text(text, fonts.Get(Font::kMain), 16)
+    :m_text(fonts.Get(Font::kMain))
 {
+    m_text.setString(text);
+    m_text.setCharacterSize(16);
 }
 
 bool gui::Label::IsSelectable() const
