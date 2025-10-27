@@ -10,6 +10,8 @@ Animation::Animation()
     , m_repeat(false)
     , m_sprite()
 {
+    sf::Texture t("");
+    m_sprite = std::make_unique<sf::Sprite>(sf::Sprite(t));
 }
 
 Animation::Animation(const sf::Texture& texture):
@@ -21,6 +23,8 @@ Animation::Animation(const sf::Texture& texture):
     , m_repeat(false)
 
 {
+    sf::Texture t("Media/Textures/Bullet.png");
+    m_sprite = std::make_unique<sf::Sprite>(sf::Sprite(t));
 }
 
 void Animation::SetTexture(const sf::Texture& texture)
