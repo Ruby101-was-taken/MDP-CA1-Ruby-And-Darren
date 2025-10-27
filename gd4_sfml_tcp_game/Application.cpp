@@ -49,7 +49,7 @@ void Application::Run()
 void Application::ProcessInput()
 {
 	while (const std::optional event = m_window.pollEvent()) {
-		m_stack.HandleEvent(event);
+		m_stack.HandleEvent(*event);
 		if (event->is<sf::Event::Closed>()) {
 			m_window.close();
 		}
