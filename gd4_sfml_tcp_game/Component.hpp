@@ -21,8 +21,8 @@ namespace gui
 		virtual void HandleEvent(const sf::Event& event) = 0;
 
 	private:
-		bool m_is_selected;
-		bool m_is_active;
+		bool is_selected_;
+		bool is_active_;
 	};
 }
 

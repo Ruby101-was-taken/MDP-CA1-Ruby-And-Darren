@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 #include <SFML/System/Time.hpp>
-#include "ReceiverCategories.hpp"
+#include "receiver_categories.hpp"
 #include <cassert>
 
 class SceneNode;

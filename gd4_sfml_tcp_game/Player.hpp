@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Window/Event.hpp>
 #include "Action.hpp"
-#include "CommandQueue.hpp"
-#include "MissionStatus.hpp"
+#include "command_queue.hpp"
+#include "mission_status.hpp"
 #include <map>
 
 class Command;
@@ -25,9 +25,9 @@ private:
 	static bool IsRealTimeAction(Action action);
 
 private:
-	std::map<sf::Keyboard::Key, Action> m_key_binding;
-	std::map<Action, Command> m_action_binding;
-	MissionStatus m_current_mission_status;
+	std::map<sf::Keyboard::Key, Action> key_binding_;
+	std::map<Action, Command> action_binding_;
+	MissionStatus current_mission_status_;
 
 };
 

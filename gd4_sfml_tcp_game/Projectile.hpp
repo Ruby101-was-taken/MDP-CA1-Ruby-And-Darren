@@ -1,7 +1,8 @@
 #pragma once
-#include "Entity.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "ProjectileType.hpp"
+#include "entity.hpp"
+#include "resource_identifiers.hpp"
+#include "projectile_type.hpp"
+#include "command_queue.hpp"
 
 class Projectile : public Entity
 {
@@ -20,8 +21,8 @@ private:
 	virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	ProjectileType m_type;
-	sf::Sprite m_sprite;
-	sf::Vector2f m_target_direction;
+	ProjectileType type_;
+	sf::Sprite sprite_;
+	sf::Vector2f target_direction_;
 };
 

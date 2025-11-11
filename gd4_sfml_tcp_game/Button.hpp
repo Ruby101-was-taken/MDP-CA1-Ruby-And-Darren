@@ -1,10 +1,10 @@
 #pragma once
 #include "Component.hpp"
 #include <functional>
-#include "ResourceIdentifiers.hpp"
-#include "SoundPlayer.hpp"
-#include "State.hpp"
-#include "ButtonType.hpp"
+#include "resource_identifiers.hpp"
+#include "sound_player.hpp"
+#include "state.hpp"
+#include "button_type.hpp"
 
 namespace gui
 {
@@ -32,11 +32,11 @@ namespace gui
 		void ChangeTexture(ButtonType buttonType);
 
 	private:
-		Callback m_callback;
-		sf::Sprite m_sprite;
-		sf::Text m_text;
-		bool m_is_toggle;
-		SoundPlayer& m_sounds;
+		Callback callback_;
+		sf::Sprite sprite_;
+		sf::Text text_;
+		bool is_toggle_;
+		SoundPlayer& sounds_;
 	};
 }
 

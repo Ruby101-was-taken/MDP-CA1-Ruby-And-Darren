@@ -1,6 +1,6 @@
 #pragma once
-#include "SceneNode.hpp"
-#include "CommandQueue.hpp"
+#include "scene_node.hpp"
+#include "command_queue.hpp"
 
 class Entity : public SceneNode
 {
@@ -22,7 +22,7 @@ public:
 	
 
 private:
-	sf::Vector2f m_velocity;
-	int m_hitpoints;
+	sf::Vector2f velocity_;
+	int hitpoints_;
 };
 

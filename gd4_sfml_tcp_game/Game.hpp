@@ -18,7 +18,7 @@ class Game
 
 		
 		static const sf::Time kTimePerFrame;
-		sf::RenderWindow m_window;
-		World m_world;
-		Player m_player;
+		sf::RenderWindow window_;
+		World world_;
+		Player player_;
 };

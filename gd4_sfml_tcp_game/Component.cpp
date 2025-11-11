@@ -1,11 +1,11 @@
-#include "Component.hpp"
+#include "component.hpp"
 
 namespace gui
 {
 
     Component::Component()
-        : m_is_selected(false)
-        , m_is_active(false)
+        : is_selected_(false)
+        , is_active_(false)
     {
     }
 
@@ -15,31 +15,31 @@ namespace gui
 
     bool Component::IsSelected() const
     {
-        return m_is_selected;
+        return is_selected_;
     }
 
     void Component::Select()
     {
-        m_is_selected = true;
+        is_selected_ = true;
     }
 
     void Component::Deselect()
     {
-        m_is_selected = false;
+        is_selected_ = false;
     }
 
     bool Component::IsActive() const
     {
-        return m_is_active;
+        return is_active_;
     }
 
     void Component::Activate()
     {
-        m_is_active = true;
+        is_active_ = true;
     }
 
     void Component::Deactivate()
     {
-        m_is_active = false;
+        is_active_ = false;
     }
 }

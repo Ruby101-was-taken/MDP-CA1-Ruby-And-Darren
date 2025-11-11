@@ -1,0 +1,168 @@
+#include "scene_node.hpp"
+#include "utility.hpp"
+#include <cassert>
+
+SceneNode::SceneNode(ReceiverCategories category):children_(), parent_(nullptr), default_category_(category)
+{
+}
+
+void SceneNode::AttachChild(Ptr child)
+{
+    child->parent_ = this;
+    //Homework: Understand this -> Cherno
+    children_.emplace_back(std::move(child));
+}
+
+SceneNode::Ptr SceneNode::DetachChild(const SceneNode& node)
+{
+    auto found = std::find_if(children_.begin(), children_.end(), [&](Ptr& p) {return p.get() == &node; });
+    assert(found != children_.end());
+
+    Ptr result = std::move(*found);
+    result->parent_ = nullptr;
+    children_.erase(found);
+    return Ptr();
+}
+
+void SceneNode::Update(sf::Time dt, CommandQueue& commands)
+{
+    UpdateCurrent(dt, commands);
+    UpdateChildren(dt, commands);
+}
+
+sf::Vector2f SceneNode::GetWorldPosition() const
+{
+    return GetWorldTransform() * sf::Vector2f();
+}
+
+sf::Transform SceneNode::GetWorldTransform() const
+{
+    sf::Transform transform = sf::Transform::Identity;
+    for (const SceneNode* node = this; node != nullptr; node = node->parent_)
+    {
+        transform = node->getTransform() * transform;
+    }
+    return transform;
+}
+
+void SceneNode::OnCommand(const Command& command, sf::Time dt)
+{
+    //Is this command for me? If it is execute
+    //Regardless of answer forward to all of my children
+    if (command.category & GetCategory())
+    {
+        command.action(*this, dt);
+    }
+
+    //Pass it on to my children
+    for (Ptr& child : children_)
+    {
+        child->OnCommand(command, dt);
+    }
+}
+
+sf::FloatRect SceneNode::GetBoundingRect() const
+{
+    return sf::FloatRect();
+}
+
+void SceneNode::DrawBoundingRect(sf::RenderTarget& target, sf::RenderStates states, sf::FloatRect& rect) const
+{
+    sf::RectangleShape shape;
+    shape.setPosition(sf::Vector2f(rect.position.x, rect.position.y));
+    shape.setSize(sf::Vector2f(rect.size.x, rect.size.y));
+    shape.setFillColor(sf::Color::Transparent);
+    shape.setOutlineColor(sf::Color::Green);
+    shape.setOutlineThickness(1.f);
+    target.draw(shape);
+}
+
+void SceneNode::CheckSceneCollision(SceneNode& scene_graph, std::set<Pair>& collision_pairs)
+{
+    CheckNodeCollision(scene_graph, collision_pairs);
+    for (Ptr& child : scene_graph.children_)
+    {
+        CheckSceneCollision(*child, collision_pairs);
+    }
+}
+
+bool Collision(const SceneNode& lhs, const SceneNode& rhs)
+{
+    return lhs.GetBoundingRect().findIntersection(rhs.GetBoundingRect()).has_value();
+}
+
+void SceneNode::RemoveWrecks()
+{
+    auto wreck_field_begin = std::remove_if(children_.begin(), children_.end(), std::mem_fn(&SceneNode::IsMarkedForRemoval));
+    children_.erase(wreck_field_begin, children_.end());
+    std::for_each(children_.begin(), children_.end(), std::mem_fn(&SceneNode::RemoveWrecks));
+}
+
+void SceneNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
+{
+    //Do nothing here
+}
+
+void SceneNode::UpdateChildren(sf::Time dt, CommandQueue& commands)
+{
+    for (Ptr& child : children_)
+    {
+        child->Update(dt, commands);
+    }
+}
+
+void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    //Apply the tranform of the current node
+    states.transform *= getTransform();
+    //Draw the node and its children with the changed transform
+    DrawCurrent(target, states);
+    DrawChildren(target, states);
+    sf::FloatRect rect = GetBoundingRect();
+    DrawBoundingRect(target, states, rect);
+}
+
+void SceneNode::DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    //Do nothing
+}
+
+void SceneNode::DrawChildren(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    for (const Ptr& child : children_)
+    {
+        child->draw(target, states);
+    }
+}
+
+unsigned int SceneNode::GetCategory() const
+{
+    return static_cast<unsigned int>(default_category_);
+}
+
+void SceneNode::CheckNodeCollision(SceneNode& node, std::set<Pair>& collision_pairs)
+{
+    if (this != &node && Collision(*this, node) && !IsDestroyed() && !node.IsDestroyed())
+    {
+        collision_pairs.insert(std::minmax(this, &node));
+    }
+    for (Ptr& child : children_)
+    {
+        child->CheckNodeCollision(node, collision_pairs);
+    }
+}
+
+bool SceneNode::IsDestroyed() const
+{
+    return false;
+}
+
+bool SceneNode::IsMarkedForRemoval() const
+{
+    return IsDestroyed();
+}
+
+float Distance(const SceneNode& lhs, const SceneNode& rhs)
+{
+    return Utility::Length(lhs.GetWorldPosition() - rhs.GetWorldPosition());
+}

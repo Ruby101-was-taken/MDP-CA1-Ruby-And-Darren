@@ -1,7 +1,7 @@
 #pragma once
-#include "Entity.hpp"
-#include "PickupType.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "entity.hpp"
+#include "pickup_type.hpp"
+#include "resource_identifiers.hpp"
 
 class Aircraft;
 
@@ -15,7 +15,7 @@ public:
 	virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	PickupType m_type;
-	sf::Sprite m_sprite;
+	PickupType type_;
+	sf::Sprite sprite_;
 };
 
