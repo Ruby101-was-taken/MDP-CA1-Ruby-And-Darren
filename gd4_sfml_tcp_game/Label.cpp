@@ -1,5 +1,5 @@
 #include "Label.hpp"
-#include "ResourceHolder.hpp"
+#include "resource_holder.hpp"
 
 gui::Label::Label(const std::string& text, const FontHolder& fonts)
     :text_(fonts.Get(Font::kMain))

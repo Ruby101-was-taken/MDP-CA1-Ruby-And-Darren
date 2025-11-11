@@ -1,6 +1,6 @@
-#include "ParticleNode.hpp"
-#include "DataTables.hpp"
-#include "ResourceHolder.hpp"
+#include "particle_node.hpp"
+#include "data_tables.hpp"
+#include "resource_holder.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -12,10 +12,10 @@ namespace
 
 ParticleNode::ParticleNode(ParticleType type, const TextureHolder& textures)
     : SceneNode()
-    , m_texture(textures.Get(TextureID::kParticle))
-    , m_type(type)
-    , m_vertex_array(sf::PrimitiveType::TriangleStrip)
-    , m_needs_vertex_update(true)
+    , texture_(textures.Get(TextureID::kParticle))
+    , type_(type)
+    , vertex_array_(sf::PrimitiveType::TriangleStrip)
+    , needs_vertex_update_(true)
 {
 }
 
@@ -23,15 +23,15 @@ void ParticleNode::AddParticle(sf::Vector2f position)
 {
     Particle particle;
     particle.position_ = position;
-    particle.color_ = Table[static_cast<int>(m_type)].m_color;
-    particle.lifetime_ = Table[static_cast<int>(m_type)].m_lifetime;
+    particle.color_ = Table[static_cast<int>(type_)].color;
+    particle.lifetime_ = Table[static_cast<int>(type_)].lifetime;
 
-    m_particles.emplace_back(particle);
+    particles_.emplace_back(particle);
 }
 
 ParticleType ParticleNode::GetParticleType() const
 {
-    return m_type;
+    return type_;
 }
 
 unsigned int ParticleNode::GetCategory() const
@@ -42,32 +42,32 @@ unsigned int ParticleNode::GetCategory() const
 void ParticleNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 {
     //Remove expired particles at beginning
-    while (!m_particles.empty() && m_particles.front().m_lifetime <= sf::Time::Zero)
+    while (!particles_.empty() && particles_.front().lifetime_ <= sf::Time::Zero)
     {
-        m_particles.pop_front();
+        particles_.pop_front();
     }
 
     //Decrease lifetime of existing particles
-    for (Particle& particle : m_particles)
+    for (Particle& particle : particles_)
     {
         particle.lifetime_ -= dt;
     }
-    m_needs_vertex_update = true;
+    needs_vertex_update_ = true;
 }
 
 void ParticleNode::DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if (m_needs_vertex_update)
+    if (needs_vertex_update_)
     {
         ComputeVertices();
-        m_needs_vertex_update = false;
+        needs_vertex_update_ = false;
     }
 
     //Apply particle texture
-    states.texture = &m_texture;
+    states.texture = &texture_;
 
     //Draw the vertices
-    target.draw(m_vertex_array, states);
+    target.draw(vertex_array_, states);
 }
 
 void ParticleNode::AddVertex(float worldX, float worldY, float texCoordX, float texCoordY, const sf::Color& color) const
@@ -77,22 +77,22 @@ void ParticleNode::AddVertex(float worldX, float worldY, float texCoordX, float 
     vertex.texCoords = sf::Vector2f(texCoordX, texCoordY);
     vertex.color = color;
 
-    m_vertex_array.append(vertex);
+    vertex_array_.append(vertex);
 }
 
 void ParticleNode::ComputeVertices() const
 {
-    sf::Vector2f size(m_texture.getSize());
+    sf::Vector2f size(texture_.getSize());
     sf::Vector2f half = size / 2.f;
 
-    m_vertex_array.clear();
+    vertex_array_.clear();
 
-    for (const Particle& particle : m_particles)
+    for (const Particle& particle : particles_)
     {
         sf::Vector2f pos = particle.position_;
         sf::Color color = particle.color_;
 
-        float ratio = particle.lifetime_.asSeconds() / Table[static_cast<int>(m_type)].m_lifetime.asSeconds();
+        float ratio = particle.lifetime_.asSeconds() / Table[static_cast<int>(type_)].lifetime.asSeconds();
         color.a = static_cast<uint8_t>(255 * std::max(ratio, 0.f));
 
         AddVertex(pos.x - half.x, pos.y - half.y, 0.f, 0.f, color);

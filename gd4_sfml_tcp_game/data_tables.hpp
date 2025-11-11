@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <SFML/System/Time.hpp>
-#include "ResourceIdentifiers.hpp"
+#include "resource_identifiers.hpp"
 #include <functional>
 #include "Aircraft.hpp"
 

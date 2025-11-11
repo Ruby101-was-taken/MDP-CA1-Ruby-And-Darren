@@ -1,16 +1,16 @@
-#include "StateStack.hpp"
-#include "StateID.hpp"
+#include "state_stack.hpp"
+#include "state_id.hpp"
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
 #include <cassert>
 
-StateStack::StateStack(State::Context context) : m_context(context)
+StateStack::StateStack(State::Context context) : context_(context)
 {
 }
 
 void StateStack::Update(sf::Time dt)
 {
-    for (auto itr = m_stack.rbegin(); itr != m_stack.rend(); ++itr)
+    for (auto itr = stack_.rbegin(); itr != stack_.rend(); ++itr)
     {
         if (!(*itr)->Update(dt))
         {
@@ -22,7 +22,7 @@ void StateStack::Update(sf::Time dt)
 
 void StateStack::Draw()
 {
-    for (State::Ptr& state : m_stack)
+    for (State::Ptr& state : stack_)
     {
         state->Draw();
     }
@@ -30,7 +30,7 @@ void StateStack::Draw()
 
 void StateStack::HandleEvent(const sf::Event& event)
 {
-    for (auto itr = m_stack.rbegin(); itr != m_stack.rend(); ++itr)
+    for (auto itr = stack_.rbegin(); itr != stack_.rend(); ++itr)
     {
         if (!(*itr)->HandleEvent(event))
         {
@@ -42,49 +42,49 @@ void StateStack::HandleEvent(const sf::Event& event)
 
 void StateStack::PushState(StateID state_id)
 {
-    m_pending_list.emplace_back(PendingChange(StackAction::kPush, state_id));
+    pending_list_.emplace_back(PendingChange(StackAction::kPush, state_id));
 }
 
 void StateStack::PopState()
 {
-    m_pending_list.emplace_back(PendingChange(StackAction::kPop));
+    pending_list_.emplace_back(PendingChange(StackAction::kPop));
 }
 
 void StateStack::ClearStack()
 {
-    m_pending_list.emplace_back(PendingChange(StackAction::kClear));
+    pending_list_.emplace_back(PendingChange(StackAction::kClear));
 }
 
 bool StateStack::IsEmpty() const
 {
-    return m_stack.empty();
+    return stack_.empty();
 }
 
 State::Ptr StateStack::CreateState(StateID state_id)
 {
-    auto found = m_state_factory.find(state_id);
-    assert(found != m_state_factory.end());
+    auto found = state_factory_.find(state_id);
+    assert(found != state_factory_.end());
     return found->second();
 }
 
 void StateStack::ApplyPendingChanges()
 {
-    for (PendingChange change : m_pending_list)
+    for (PendingChange change : pending_list_)
     {
         switch (change.action)
         {
             case StackAction::kPush:
-                m_stack.emplace_back(CreateState(change.state_id));
+                stack_.emplace_back(CreateState(change.state_id));
                 break;
             case StackAction::kPop:
-                m_stack.pop_back();
+                stack_.pop_back();
                 break;
             case StackAction::kClear:
-                m_stack.clear();
+                stack_.clear();
                 break;
         }
     }
-    m_pending_list.clear();
+    pending_list_.clear();
 }
 
 StateStack::PendingChange::PendingChange(StackAction action, StateID stateid)

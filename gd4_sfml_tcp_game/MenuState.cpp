@@ -1,15 +1,15 @@
-#include "MenuState.hpp"
-#include "ResourceHolder.hpp"
-#include "Utility.hpp"
-#include "Button.hpp"
+#include "menu_state.hpp"
+#include "resource_holder.hpp"
+#include "utility.hpp"
+#include "button.hpp"
 
 MenuState::MenuState(StateStack& stack, Context context)
     :State(stack, context)
-    , m_background_sprite(context.textures->Get(TextureID::kTitleScreen))
+    , background_sprite_(context.textures->Get(TextureID::kTitleScreen))
 {
     //sf::Texture& texture = context.textures->Get(TextureID::kTitleScreen);
 
-    //m_background_sprite.setTexture(texture);
+    //background_sprite_.setTexture(texture);
 
     auto play_button = std::make_shared<gui::Button>(context);
     play_button->setPosition({ 100, 250 });
@@ -36,9 +36,9 @@ MenuState::MenuState(StateStack& stack, Context context)
             RequestStackPop();
     });
 
-    m_gui_container.Pack(play_button);
-    m_gui_container.Pack(settings_button);
-    m_gui_container.Pack(exit_button);
+    gui_container_.Pack(play_button);
+    gui_container_.Pack(settings_button);
+    gui_container_.Pack(exit_button);
 
     //Play the music
     context.music->Play(MusicThemes::kMenuTheme);
@@ -48,8 +48,8 @@ void MenuState::Draw()
 {
     sf::RenderWindow& window = *GetContext().window;
     window.setView(window.getDefaultView());
-    window.draw(m_background_sprite);
-    window.draw(m_gui_container);
+    window.draw(background_sprite_);
+    window.draw(gui_container_);
 }
 
 bool MenuState::Update(sf::Time dt)
@@ -59,7 +59,7 @@ bool MenuState::Update(sf::Time dt)
 
 bool MenuState::HandleEvent(const sf::Event& event)
 {
-    m_gui_container.HandleEvent(event);
+    gui_container_.HandleEvent(event);
     return true;
 }
 

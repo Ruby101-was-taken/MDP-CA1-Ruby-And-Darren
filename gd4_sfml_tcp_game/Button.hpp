@@ -1,10 +1,10 @@
 #pragma once
 #include "Component.hpp"
 #include <functional>
-#include "ResourceIdentifiers.hpp"
-#include "SoundPlayer.hpp"
-#include "State.hpp"
-#include "ButtonType.hpp"
+#include "resource_identifiers.hpp"
+#include "sound_player.hpp"
+#include "state.hpp"
+#include "button_type.hpp"
 
 namespace gui
 {

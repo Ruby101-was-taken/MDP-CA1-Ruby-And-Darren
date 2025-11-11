@@ -47,34 +47,34 @@ private:
 private:
 	struct SpawnPoint
 	{
-		SpawnPoint(AircraftType type, float x, float y) :m_type(type), m_x(x), m_y(y)
+		SpawnPoint(AircraftType type, float x, float y) :type(type), x(x), y(y)
 		{
 
 		}
-		AircraftType m_type;
-		float m_x;
-		float m_y;
+		AircraftType type;
+		float x;
+		float y;
 	};
 
 private:
-	sf::RenderTarget& m_target;
-	sf::RenderTexture m_scene_texture;
-	sf::View m_camera;
-	TextureHolder m_textures;
-	FontHolder& m_fonts;
-	SoundPlayer& m_sounds;
-	SceneNode m_scenegraph;
-	std::array<SceneNode*, static_cast<int>(SceneLayers::kLayerCount)> m_scene_layers;
-	sf::FloatRect m_world_bounds;
-	sf::Vector2f m_spawn_position;
-	float m_scrollspeed;
-	Aircraft* m_player_aircraft;
+	sf::RenderTarget& target_;
+	sf::RenderTexture scene_texture_;
+	sf::View camera_;
+	TextureHolder textures_;
+	FontHolder& fonts_;
+	SoundPlayer& sounds_;
+	SceneNode scenegraph_;
+	std::array<SceneNode*, static_cast<int>(SceneLayers::kLayerCount)> scene_layers_;
+	sf::FloatRect world_bounds_;
+	sf::Vector2f spawn_position_;
+	float scrollspeed_;
+	Aircraft* player_aircraft_;
 
-	CommandQueue m_command_queue;
+	CommandQueue command_queue_;
 
-	std::vector<SpawnPoint> m_enemy_spawn_points;
-	std::vector<Aircraft*> m_active_enemies;
+	std::vector<SpawnPoint> enemy_spawn_points_;
+	std::vector<Aircraft*> active_enemies_;
 
-	BloomEffect m_bloom_effect;
+	BloomEffect bloom_effect_;
 };
 

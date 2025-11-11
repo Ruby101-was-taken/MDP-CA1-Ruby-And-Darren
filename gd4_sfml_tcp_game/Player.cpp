@@ -1,6 +1,6 @@
-#include "Player.hpp"
-#include "ReceiverCategories.hpp"
-#include "Aircraft.hpp"
+#include "player.hpp"
+#include "receiver_categories.hpp"
+#include "aircraft.hpp"
 
 struct AircraftMover
 {

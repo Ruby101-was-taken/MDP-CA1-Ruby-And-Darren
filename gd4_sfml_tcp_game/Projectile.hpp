@@ -1,7 +1,7 @@
 #pragma once
-#include "Entity.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "ProjectileType.hpp"
+#include "entity.hpp"
+#include "resource_identifiers.hpp"
+#include "projectile_type.hpp"
 #include "command_queue.hpp"
 
 class Projectile : public Entity

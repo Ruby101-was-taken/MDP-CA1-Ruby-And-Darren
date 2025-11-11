@@ -1,9 +1,9 @@
-#include "Projectile.hpp"
-#include "DataTables.hpp"
-#include "ResourceHolder.hpp"
-#include "Utility.hpp"
-#include "EmitterNode.hpp"
-#include "ParticleType.hpp"
+#include "projectile.hpp"
+#include "data_tables.hpp"
+#include "resource_holder.hpp"
+#include "utility.hpp"
+#include "emitter_node.hpp"
+#include "particle_type.hpp"
 
 namespace
 {
@@ -11,7 +11,7 @@ namespace
 }
 
 Projectile::Projectile(ProjectileType type, const TextureHolder& textures)
-    : Entity(1), type_(type), sprite_(textures.Get(Table[static_cast<int>(type)].m_texture), Table[static_cast<int>(type)].m_texture_rect)
+    : Entity(1), type_(type), sprite_(textures.Get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].texture_rect)
 {
     Utility::CentreOrigin(sprite_);
 
@@ -56,12 +56,12 @@ sf::FloatRect Projectile::GetBoundingRect() const
 
 float Projectile::GetMaxSpeed() const
 {
-    return Table[static_cast<int>(type_)].m_speed;
+    return Table[static_cast<int>(type_)].speed;
 }
 
 float Projectile::GetDamage() const
 {
-    return Table[static_cast<int>(type_)].m_damage;
+    return Table[static_cast<int>(type_)].damage;
 }
 
 void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)

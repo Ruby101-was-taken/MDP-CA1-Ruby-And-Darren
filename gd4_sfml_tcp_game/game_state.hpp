@@ -1,6 +1,6 @@
 #pragma once
-#include "State.hpp"
-#include "World.hpp"
+#include "state.hpp"
+#include "world.hpp"
 
 class GameState : public State
 {

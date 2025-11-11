@@ -1,11 +1,11 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "Player.hpp"
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "StateStack.hpp"
-#include "MusicPlayer.hpp"
-#include "SoundPlayer.hpp"
+#include "player.hpp"
+#include "resource_holder.hpp"
+#include "resource_identifiers.hpp"
+#include "state_stack.hpp"
+#include "music_player.hpp"
+#include "sound_player.hpp"
 
 class Application
 {

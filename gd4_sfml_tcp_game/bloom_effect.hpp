@@ -1,7 +1,7 @@
 #pragma once
-#include "PostEffect.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "ResourceHolder.hpp"
+#include "post_effect.hpp"
+#include "resource_identifiers.hpp"
+#include "resource_holder.hpp"
 
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Shader.hpp>

@@ -1,8 +1,8 @@
-#include "GameState.hpp"
-#include "Player.hpp"
-#include "MissionStatus.hpp"
+#include "game_state.hpp"
+#include "player.hpp"
+#include "mission_status.hpp"
 
-GameState::GameState(StateStack& stack, Context context) : State(stack, context), m_world(*context.window, *context.fonts, *context.sounds), m_player(*context.player)
+GameState::GameState(StateStack& stack, Context context) : State(stack, context), world_(*context.window, *context.fonts, *context.sounds), player_(*context.player)
 {
 	//Play the music
 	context.music->Play(MusicThemes::kMissionTheme);
@@ -10,32 +10,32 @@ GameState::GameState(StateStack& stack, Context context) : State(stack, context)
 
 void GameState::Draw()
 {
-	m_world.Draw();
+	world_.Draw();
 }
 
 bool GameState::Update(sf::Time dt)
 {
 
-	m_world.Update(dt);
-	if (!m_world.HasAlivePlayer())
+	world_.Update(dt);
+	if (!world_.HasAlivePlayer())
 	{
-		m_player.SetMissionStatus(MissionStatus::kMissionFailure);
+		player_.SetMissionStatus(MissionStatus::kMissionFailure);
 		RequestStackPush(StateID::kGameOver);
 	}
-	else if(m_world.HasPlayerReachedEnd())
+	else if(world_.HasPlayerReachedEnd())
 	{ 
-		m_player.SetMissionStatus(MissionStatus::kMissionSuccess);
+		player_.SetMissionStatus(MissionStatus::kMissionSuccess);
 		RequestStackPush(StateID::kGameOver);
 	}
-	CommandQueue& commands = m_world.GetCommandQueue();
-	m_player.HandleRealTimeInput(commands);
+	CommandQueue& commands = world_.GetCommandQueue();
+	player_.HandleRealTimeInput(commands);
 	return true;
 }
 
 bool GameState::HandleEvent(const sf::Event& event)
 {
-	CommandQueue& commands = m_world.GetCommandQueue();
-	m_player.HandleEvent(event, commands);
+	CommandQueue& commands = world_.GetCommandQueue();
+	player_.HandleEvent(event, commands);
 
 	//Escape should bring up the pause menu
 	

@@ -326,8 +326,7 @@ void Aircraft::CheckPickupDrop(CommandQueue& commands)
 	spawned_pickup_ = true;
 }
 
-void Aircraft::UpdateRollAnimation()
-{
+void Aircraft::UpdateRollAnimation() {
 	if (Table[static_cast<int>(type_)].has_roll_animation)
 	{
 		sf::IntRect textureRect = Table[static_cast<int>(type_)].texture_rect;

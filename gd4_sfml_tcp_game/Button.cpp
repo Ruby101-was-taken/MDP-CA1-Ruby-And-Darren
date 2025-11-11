@@ -1,7 +1,7 @@
-#include "Button.hpp"
-#include "ResourceHolder.hpp"
-#include "Utility.hpp"
-#include "ButtonType.hpp"
+#include "button.hpp"
+#include "resource_holder.hpp"
+#include "utility.hpp"
+#include "button_type.hpp"
 
 gui::Button::Button(State::Context context)
     : sprite_(context.textures->Get(TextureID::kButtons))

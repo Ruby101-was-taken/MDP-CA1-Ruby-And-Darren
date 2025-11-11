@@ -1,7 +1,7 @@
 #pragma once
-#include "Entity.hpp"
-#include "PickupType.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "entity.hpp"
+#include "pickup_type.hpp"
+#include "resource_identifiers.hpp"
 
 class Aircraft;
 

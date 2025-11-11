@@ -1,8 +1,8 @@
 #pragma once
-#include "TextureID.hpp"
-#include "Font.hpp"
-#include "ShaderTypes.hpp"
-#include "SoundEffect.hpp"
+#include "texture_id.hpp"
+#include "font.hpp"
+#include "shader_types.hpp"
+#include "sound_effect.hpp"
 
 namespace sf
 {

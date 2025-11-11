@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include "Game.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "game.hpp"
+#include "resource_identifiers.hpp"
 #include <iostream>
-#include "Application.hpp"
+#include "application.hpp"
 
 int main()
 {

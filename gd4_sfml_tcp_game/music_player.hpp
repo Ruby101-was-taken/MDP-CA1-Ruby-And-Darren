@@ -1,13 +1,13 @@
 #pragma once
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "resource_holder.hpp"
+#include "resource_identifiers.hpp"
 
 #include <SFML/Audio/Music.hpp>
 
 #include <map>
 #include <string>
 
-#include "MusicThemes.hpp"
+#include "music_themes.hpp"
 
 class MusicPlayer 
 {

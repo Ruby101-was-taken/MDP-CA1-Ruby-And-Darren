@@ -1,6 +1,6 @@
-#include "SettingsState.hpp"
-#include "ResourceHolder.hpp"
-#include "Utility.hpp"
+#include "settings_state.hpp"
+#include "resource_holder.hpp"
+#include "utility.hpp"
 
 SettingsState::SettingsState(StateStack& stack, Context context)
 	: State(stack, context)
@@ -45,13 +45,14 @@ bool SettingsState::HandleEvent(const sf::Event& event)
 	//Iterate through all of the key binding buttons to see if they are being presssed, waiting for the user to enter a key
 	for (std::size_t action = 0; action < static_cast<int>(Action::kActionCount); ++action)
 	{
-		if (m_binding_buttons[action]->IsActive())
+		if (binding_buttons_[action]->IsActive())
 		{
 			is_key_binding = true;
 			if (const auto* keyReleased = event.getIf<sf::Event::KeyReleased>())
 			{
 				GetContext().player->AssignKey(static_cast<Action>(action), keyReleased->code);
-				m_binding_buttons[action]->Deactivate();
+				
+				binding_buttons_[action]->Deactivate();
 			}
 			break;
 		}
@@ -75,20 +76,20 @@ void SettingsState::UpdateLabels()
 	for (std::size_t i = 0; i < static_cast<int>(Action::kActionCount); ++i)
 	{
 		sf::Keyboard::Key key = player.GetAssignedKey(static_cast<Action>(i));
-		m_binding_labels[i]->SetText(Utility::toString(key));
+		binding_labels_[i]->SetText(Utility::toString(key));
 	}
 }
 
 void SettingsState::AddButtonLabel(Action action, float y, const std::string& text, Context context)
 {
-	m_binding_buttons[static_cast<int>(action)] = std::make_shared<gui::Button>(context);
-	m_binding_buttons[static_cast<int>(action)]->setPosition({ 80.f, y });
-	m_binding_buttons[static_cast<int>(action)]->SetText(text);
-	m_binding_buttons[static_cast<int>(action)]->SetToggle(true);
+	binding_buttons_[static_cast<int>(action)] = std::make_shared<gui::Button>(context);
+	binding_buttons_[static_cast<int>(action)]->setPosition({ 80.f, y });
+	binding_buttons_[static_cast<int>(action)]->SetText(text);
+	binding_buttons_[static_cast<int>(action)]->SetToggle(true);
 
-	m_binding_labels[static_cast<int>(action)] = std::make_shared<gui::Label>("", *context.fonts);
-	m_binding_labels[static_cast<int>(action)]->setPosition({ 300.f, y + 15.f });
+	binding_labels_[static_cast<int>(action)] = std::make_shared<gui::Label>("", *context.fonts);
+	binding_labels_[static_cast<int>(action)]->setPosition({ 300.f, y + 15.f });
 
-	m_gui_container.Pack(m_binding_buttons[static_cast<int>(action)]);
-	m_gui_container.Pack(m_binding_labels[static_cast<int>(action)]);
+	m_gui_container.Pack(binding_buttons_[static_cast<int>(action)]);
+	m_gui_container.Pack(binding_labels_[static_cast<int>(action)]);
 }

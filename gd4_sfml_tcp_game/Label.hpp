@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.hpp"
-#include "ResourceIdentifiers.hpp"
+#include "resource_identifiers.hpp"
 
 namespace gui
 {

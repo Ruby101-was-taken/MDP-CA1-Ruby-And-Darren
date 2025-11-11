@@ -1,38 +1,38 @@
-#include "MusicPlayer.hpp"
+#include "music_player.hpp"
 
 MusicPlayer::MusicPlayer()
-	: m_volume(10.f)
+	: volume_(10.f)
 {
-	m_filenames[MusicThemes::kMenuTheme] = "Media/Music/MenuTheme.ogg";
-	m_filenames[MusicThemes::kMissionTheme] = "Media/Music/MissionTheme.ogg";
+	filenames_[MusicThemes::kMenuTheme] = "Media/Music/MenuTheme.ogg";
+	filenames_[MusicThemes::kMissionTheme] = "Media/Music/MissionTheme.ogg";
 }
 
 void MusicPlayer::Play(MusicThemes theme)
 {
-	std::string filename = m_filenames[theme];
+	std::string filename = filenames_[theme];
 
-	if (!m_music.openFromFile(filename))
+	if (!music_.openFromFile(filename))
 		throw std::runtime_error("Music " + filename + " could not be loaded.");
 
-	m_music.setVolume(m_volume);
-	m_music.setLooping(true);
-	m_music.play();
+	music_.setVolume(volume_);
+	music_.setLooping(true);
+	music_.play();
 }
 
 void MusicPlayer::Stop()
 {
-	m_music.stop();
+	music_.stop();
 }
 
 void MusicPlayer::SetVolume(float volume)
 {
-	m_volume = volume;
+	volume_ = volume;
 }
 
 void MusicPlayer::SetPaused(bool paused)
 {
 	if (paused)
-		m_music.pause();
+		music_.pause();
 	else
-		m_music.play();
+		music_.play();
 }

@@ -1,18 +1,18 @@
-#include "CommandQueue.hpp"
+#include "command_queue.hpp"
 
 void CommandQueue::Push(const Command& command)
 {
-    m_queue.push(command);
+    queue_.push(command);
 }
 
 Command CommandQueue::Pop()
 {
-    Command command = m_queue.front();
-    m_queue.pop();
+    Command command = queue_.front();
+    queue_.pop();
     return command;
 }
 
 bool CommandQueue::IsEmpty() const
 {
-    return m_queue.empty();
+    return queue_.empty();
 }

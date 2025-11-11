@@ -1,10 +1,10 @@
-#include "Application.hpp"
-#include "GameState.hpp"
-#include "TitleState.hpp"
-#include "MenuState.hpp"
-#include "PauseState.hpp"
-#include "SettingsState.hpp"
-#include "GameOverState.hpp"
+#include "application.hpp"
+#include "game_state.hpp"
+#include "title_state.hpp"
+#include "menu_state.hpp"
+#include "pause_state.hpp"
+#include "settings_state.hpp"
+#include "game_over_state.hpp"
 
 const sf::Time Application::kTimePerFrame = sf::seconds(1.f/60.f);
 

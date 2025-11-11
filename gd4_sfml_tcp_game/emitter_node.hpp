@@ -1,7 +1,7 @@
 #pragma once
-#include "SceneNode.hpp"
-#include "ParticleType.hpp"
-#include "ParticleNode.hpp"
+#include "scene_node.hpp"
+#include "particle_type.hpp"
+#include "particle_node.hpp"
 
 class EmitterNode : public SceneNode
 {

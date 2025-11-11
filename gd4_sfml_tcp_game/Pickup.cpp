@@ -1,7 +1,7 @@
-#include "Pickup.hpp"
-#include "DataTables.hpp"
-#include "ResourceHolder.hpp"
-#include "Utility.hpp"
+#include "pickup.hpp"
+#include "data_tables.hpp"
+#include "resource_holder.hpp"
+#include "utility.hpp"
 
 
 namespace
@@ -12,7 +12,7 @@ namespace
 Pickup::Pickup(PickupType type, const TextureHolder& textures)
     : Entity(1)
     , type_(type)
-    , sprite_(textures.Get(Table[static_cast<int>(type)].m_texture), Table[static_cast<int>(type)].m_texture_rect)
+    , sprite_(textures.Get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].texture_rect)
 {
     Utility::CentreOrigin(sprite_);
 }
@@ -29,7 +29,7 @@ sf::FloatRect Pickup::GetBoundingRect() const
 
 void Pickup::Apply(Aircraft& player) const
 {
-    Table[static_cast<int>(type_)].m_action(player);
+    Table[static_cast<int>(type_)].action(player);
 }
 
 void Pickup::DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const

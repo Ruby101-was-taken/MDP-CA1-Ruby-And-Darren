@@ -1,6 +1,6 @@
-#include "State.hpp"
-#include "StateID.hpp"
-#include "StateStack.hpp"
+#include "state.hpp"
+#include "state_iD.hpp"
+#include "state_stack.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, MusicPlayer& music, SoundPlayer& sounds) : window(&window), textures(&textures), fonts(&fonts), player(&player), music(&music), sounds(&sounds)
 {

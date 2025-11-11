@@ -1,26 +1,26 @@
-#include "SceneNode.hpp"
-#include "Utility.hpp"
+#include "scene_node.hpp"
+#include "utility.hpp"
 #include <cassert>
 
-SceneNode::SceneNode(ReceiverCategories category):m_children(), m_parent(nullptr), m_default_category(category)
+SceneNode::SceneNode(ReceiverCategories category):children_(), parent_(nullptr), default_category_(category)
 {
 }
 
 void SceneNode::AttachChild(Ptr child)
 {
-    child->m_parent = this;
+    child->parent_ = this;
     //Homework: Understand this -> Cherno
-    m_children.emplace_back(std::move(child));
+    children_.emplace_back(std::move(child));
 }
 
 SceneNode::Ptr SceneNode::DetachChild(const SceneNode& node)
 {
-    auto found = std::find_if(m_children.begin(), m_children.end(), [&](Ptr& p) {return p.get() == &node; });
-    assert(found != m_children.end());
+    auto found = std::find_if(children_.begin(), children_.end(), [&](Ptr& p) {return p.get() == &node; });
+    assert(found != children_.end());
 
     Ptr result = std::move(*found);
-    result->m_parent = nullptr;
-    m_children.erase(found);
+    result->parent_ = nullptr;
+    children_.erase(found);
     return Ptr();
 }
 
@@ -38,7 +38,7 @@ sf::Vector2f SceneNode::GetWorldPosition() const
 sf::Transform SceneNode::GetWorldTransform() const
 {
     sf::Transform transform = sf::Transform::Identity;
-    for (const SceneNode* node = this; node != nullptr; node = node->m_parent)
+    for (const SceneNode* node = this; node != nullptr; node = node->parent_)
     {
         transform = node->getTransform() * transform;
     }
@@ -55,7 +55,7 @@ void SceneNode::OnCommand(const Command& command, sf::Time dt)
     }
 
     //Pass it on to my children
-    for (Ptr& child : m_children)
+    for (Ptr& child : children_)
     {
         child->OnCommand(command, dt);
     }
@@ -80,7 +80,7 @@ void SceneNode::DrawBoundingRect(sf::RenderTarget& target, sf::RenderStates stat
 void SceneNode::CheckSceneCollision(SceneNode& scene_graph, std::set<Pair>& collision_pairs)
 {
     CheckNodeCollision(scene_graph, collision_pairs);
-    for (Ptr& child : scene_graph.m_children)
+    for (Ptr& child : scene_graph.children_)
     {
         CheckSceneCollision(*child, collision_pairs);
     }
@@ -93,9 +93,9 @@ bool Collision(const SceneNode& lhs, const SceneNode& rhs)
 
 void SceneNode::RemoveWrecks()
 {
-    auto wreck_field_begin = std::remove_if(m_children.begin(), m_children.end(), std::mem_fn(&SceneNode::IsMarkedForRemoval));
-    m_children.erase(wreck_field_begin, m_children.end());
-    std::for_each(m_children.begin(), m_children.end(), std::mem_fn(&SceneNode::RemoveWrecks));
+    auto wreck_field_begin = std::remove_if(children_.begin(), children_.end(), std::mem_fn(&SceneNode::IsMarkedForRemoval));
+    children_.erase(wreck_field_begin, children_.end());
+    std::for_each(children_.begin(), children_.end(), std::mem_fn(&SceneNode::RemoveWrecks));
 }
 
 void SceneNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
@@ -105,7 +105,7 @@ void SceneNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 
 void SceneNode::UpdateChildren(sf::Time dt, CommandQueue& commands)
 {
-    for (Ptr& child : m_children)
+    for (Ptr& child : children_)
     {
         child->Update(dt, commands);
     }
@@ -129,7 +129,7 @@ void SceneNode::DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) c
 
 void SceneNode::DrawChildren(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    for (const Ptr& child : m_children)
+    for (const Ptr& child : children_)
     {
         child->draw(target, states);
     }
@@ -137,7 +137,7 @@ void SceneNode::DrawChildren(sf::RenderTarget& target, sf::RenderStates states) 
 
 unsigned int SceneNode::GetCategory() const
 {
-    return static_cast<unsigned int>(m_default_category);
+    return static_cast<unsigned int>(default_category_);
 }
 
 void SceneNode::CheckNodeCollision(SceneNode& node, std::set<Pair>& collision_pairs)
@@ -146,7 +146,7 @@ void SceneNode::CheckNodeCollision(SceneNode& node, std::set<Pair>& collision_pa
     {
         collision_pairs.insert(std::minmax(this, &node));
     }
-    for (Ptr& child : m_children)
+    for (Ptr& child : children_)
     {
         child->CheckNodeCollision(node, collision_pairs);
     }

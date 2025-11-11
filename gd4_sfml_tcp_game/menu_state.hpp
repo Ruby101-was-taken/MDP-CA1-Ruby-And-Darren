@@ -1,7 +1,7 @@
 #pragma once
-#include "State.hpp"
-#include "MenuOptions.hpp"
-#include "Container.hpp"
+#include "state.hpp"
+#include "menu_options.hpp"
+#include "container.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <vector>

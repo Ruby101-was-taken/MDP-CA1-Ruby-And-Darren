@@ -1,8 +1,8 @@
 #pragma once
-#include "SceneNode.hpp"
-#include "ParticleType.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "Particle.hpp"
+#include "scene_node.hpp"
+#include "particle_type.hpp"
+#include "resource_identifiers.hpp"
+#include "particle.hpp"
 #include <deque>
 
 class ParticleNode : public SceneNode

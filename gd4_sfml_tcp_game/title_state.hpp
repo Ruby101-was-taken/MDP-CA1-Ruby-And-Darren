@@ -16,7 +16,7 @@ private:
 	sf::Sprite background_sprite_;
 	sf::Text text_;
 
-	bool m_show_text;
-	sf::Time m_text_effect_time;
+	bool show_text_;
+	sf::Time text_effect_time_;
 };
 
