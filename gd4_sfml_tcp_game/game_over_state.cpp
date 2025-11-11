@@ -1,31 +1,31 @@
-#include "GameOverState.hpp"
-#include "ResourceHolder.hpp"
+#include "game_over_state.hpp"
+#include "resource_holder.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "Player.hpp"
-#include "Utility.hpp"
+#include "player.hpp"
+#include "utility.hpp"
 
 
 GameOverState::GameOverState(StateStack& stack, Context context)
     : State(stack, context)
-    , m_game_over_text(context.fonts->Get(Font::kMain))
-    , m_elapsed_time(sf::Time::Zero)
+    , game_over_text_(context.fonts->Get(Font::kMain))
+    , elapsed_time_(sf::Time::Zero)
 {
     //sf::Font& font = context.fonts->Get(Font::kMain);
     sf::Vector2f window_size(context.window->getSize());
 
-    //m_game_over_text.setFont(font);
+    //game_over_text_.setFont(font);
     if (context.player->GetMissionStatus() == MissionStatus::kMissionSuccess)
     {
-        m_game_over_text.setString("Mission Success");
+        game_over_text_.setString("Mission Success");
     }
     else
     {
-        m_game_over_text.setString("Mission Failure");
+        game_over_text_.setString("Mission Failure");
     }
 
-    m_game_over_text.setCharacterSize(70);
-    Utility::CentreOrigin(m_game_over_text);
-    m_game_over_text.setPosition({ 0.5f * window_size.x, 0.4f * window_size.y });
+    game_over_text_.setCharacterSize(70);
+    Utility::CentreOrigin(game_over_text_);
+    game_over_text_.setPosition({ 0.5f * window_size.x, 0.4f * window_size.y });
 
 }
 
@@ -40,14 +40,14 @@ void GameOverState::Draw()
     background_shape.setSize(window.getView().getSize());
 
     window.draw(background_shape);
-    window.draw(m_game_over_text);
+    window.draw(game_over_text_);
 }
 
 bool GameOverState::Update(sf::Time dt)
 {
     //Show gameover for 3 seconds and then return to the main menu
-    m_elapsed_time += dt;
-    if (m_elapsed_time > sf::seconds(3))
+    elapsed_time_ += dt;
+    if (elapsed_time_ > sf::seconds(3))
     {
         RequestStackClear();
         RequestStackPush(StateID::kMenu);

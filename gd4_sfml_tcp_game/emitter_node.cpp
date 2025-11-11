@@ -1,16 +1,16 @@
-#include "EmitterNode.hpp"
+#include "emitter_node.hpp"
 
 EmitterNode::EmitterNode(ParticleType type)
 	:SceneNode()
-	, m_accumulated_time(sf::Time::Zero)
-	, m_type(type)
-	, m_particle_system(nullptr)
+	, accumulated_time_(sf::Time::Zero)
+	, type_(type)
+	, particle_system_(nullptr)
 {
 }
 
 void EmitterNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 {
-	if (m_particle_system)
+	if (particle_system_)
 	{
 		EmitParticles(dt);
 	}
@@ -19,8 +19,8 @@ void EmitterNode::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 		// Find particle node with the same type as the emitter
 		auto finder = [this](ParticleNode& container, sf::Time)
 			{
-				if (container.GetParticleType() == m_type)
-					m_particle_system = &container;
+				if (container.GetParticleType() == type_)
+					particle_system_ = &container;
 			};
 		Command command;
 		command.category = static_cast<int>(ReceiverCategories::kParticleSystem);
@@ -35,10 +35,10 @@ void EmitterNode::EmitParticles(sf::Time dt)
 	const float emissionRate = 30.f;
 	const sf::Time interval = sf::seconds(1.f) / emissionRate;
 
-	m_accumulated_time += dt;
-	while (m_accumulated_time > interval)
+	accumulated_time_ += dt;
+	while (accumulated_time_ > interval)
 	{
-		m_accumulated_time -= interval;
-		m_particle_system->AddParticle(GetWorldPosition());
+		accumulated_time_ -= interval;
+		particle_system_->AddParticle(GetWorldPosition());
 	}
 }

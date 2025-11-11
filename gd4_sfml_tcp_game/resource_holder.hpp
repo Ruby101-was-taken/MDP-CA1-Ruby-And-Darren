@@ -20,4 +20,4 @@ private:
 	std::map<Identifier, std::unique_ptr<Resource>> resource_map_;
 };
 
-#include "ResourceHolder.inl"
+#include "resource_holder.inl"

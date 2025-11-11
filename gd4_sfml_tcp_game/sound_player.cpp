@@ -1,6 +1,6 @@
-#include "SoundPlayer.hpp"
+#include "sound_player.hpp"
 
-#include "SoundEffect.hpp"
+#include "sound_effect.hpp"
 
 #include <SFML/Audio/Listener.hpp>
 
@@ -19,13 +19,13 @@ namespace
 
 SoundPlayer::SoundPlayer()
 {
-	m_sound_buffers.Load(SoundEffect::kAlliedGunfire, "Media/Sound/AlliedGunfire.wav");
-	m_sound_buffers.Load(SoundEffect::kEnemyGunfire, "Media/Sound/EnemyGunfire.wav");
-	m_sound_buffers.Load(SoundEffect::kExplosion1, "Media/Sound/Explosion1.wav");
-	m_sound_buffers.Load(SoundEffect::kExplosion2, "Media/Sound/Explosion2.wav");
-	m_sound_buffers.Load(SoundEffect::kLaunchMissile, "Media/Sound/LaunchMissile.wav");
-	m_sound_buffers.Load(SoundEffect::kCollectPickup, "Media/Sound/CollectPickup.wav");
-	m_sound_buffers.Load(SoundEffect::kButton, "Media/Sound/Button.wav");
+	sound_buffers_.Load(SoundEffect::kAlliedGunfire, "Media/Sound/AlliedGunfire.wav");
+	sound_buffers_.Load(SoundEffect::kEnemyGunfire, "Media/Sound/EnemyGunfire.wav");
+	sound_buffers_.Load(SoundEffect::kExplosion1, "Media/Sound/Explosion1.wav");
+	sound_buffers_.Load(SoundEffect::kExplosion2, "Media/Sound/Explosion2.wav");
+	sound_buffers_.Load(SoundEffect::kLaunchMissile, "Media/Sound/LaunchMissile.wav");
+	sound_buffers_.Load(SoundEffect::kCollectPickup, "Media/Sound/CollectPickup.wav");
+	sound_buffers_.Load(SoundEffect::kButton, "Media/Sound/Button.wav");
 
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection({ 0.f, 0.f, -1.f });
@@ -38,10 +38,10 @@ void SoundPlayer::Play(SoundEffect effect)
 
 void SoundPlayer::Play(SoundEffect effect, sf::Vector2f position)
 {
-	m_sounds.emplace_back(m_sound_buffers.Get(effect));
-	sf::Sound& sound = m_sounds.back();
+	sounds_.emplace_back(sound_buffers_.Get(effect));
+	sf::Sound& sound = sounds_.back();
 
-	sound.setBuffer(m_sound_buffers.Get(effect));
+	sound.setBuffer(sound_buffers_.Get(effect));
 	sound.setPosition({ position.x, -position.y, 0.f });
 	sound.setAttenuation(Attenuation);
 	sound.setMinDistance(MinDistance3D);
@@ -52,7 +52,7 @@ void SoundPlayer::Play(SoundEffect effect, sf::Vector2f position)
 
 void SoundPlayer::RemoveStoppedSounds()
 {
-	m_sounds.remove_if([](const sf::Sound& s)
+	sounds_.remove_if([](const sf::Sound& s)
 		{
 			return s.getStatus() == sf::Sound::Status::Stopped;
 		});

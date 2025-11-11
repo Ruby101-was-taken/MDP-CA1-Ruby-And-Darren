@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include "entity.hpp"
 
 Entity::Entity(int hitpoints)
     :hitpoints_(hitpoints)

@@ -134,43 +134,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Aircraft.cpp" />
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="BloomEffect.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Command.cpp" />
-    <ClCompile Include="CommandQueue.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Container.cpp" />
-    <ClCompile Include="DataTables.cpp" />
-    <ClCompile Include="EmitterNode.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameOverState.cpp" />
-    <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="Label.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MenuState.cpp" />
-    <ClCompile Include="MusicPlayer.cpp" />
-    <ClCompile Include="ParticleNode.cpp" />
+    <ClCompile Include="aircraft.cpp" />
+    <ClCompile Include="animation.cpp" />
+    <ClCompile Include="application.cpp" />
+    <ClCompile Include="bloom_effect.cpp" />
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="command.cpp" />
+    <ClCompile Include="command_queue.cpp" />
+    <ClCompile Include="component.cpp" />
+    <ClCompile Include="container.cpp" />
+    <ClCompile Include="data_tables.cpp" />
+    <ClCompile Include="emitter_node.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_over_state.cpp" />
+    <ClCompile Include="game_state.cpp" />
+    <ClCompile Include="label.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu_state.cpp" />
+    <ClCompile Include="music_player.cpp" />
+    <ClCompile Include="particle_node.cpp" />
     <ClCompile Include="PauseState.cpp" />
-    <ClCompile Include="Pickup.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PostEffect.cpp" />
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="SceneNode.cpp" />
-    <ClCompile Include="SettingsState.cpp" />
-    <ClCompile Include="SoundNode.cpp" />
-    <ClCompile Include="SoundPlayer.cpp" />
-    <ClCompile Include="SpriteNode.cpp" />
-    <ClCompile Include="State.cpp" />
-    <ClCompile Include="StateStack.cpp" />
-    <ClCompile Include="TextNode.cpp" />
-    <ClCompile Include="TextureHolder.cpp" />
-    <ClCompile Include="TitleState.cpp" />
-    <ClCompile Include="Utility.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="pickup.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="post_effect.cpp" />
+    <ClCompile Include="projectile.cpp" />
+    <ClCompile Include="scene_node.cpp" />
+    <ClCompile Include="settings_state.cpp" />
+    <ClCompile Include="sound_node.cpp" />
+    <ClCompile Include="sound_player.cpp" />
+    <ClCompile Include="sprite_node.cpp" />
+    <ClCompile Include="state.cpp" />
+    <ClCompile Include="state_stack.cpp" />
+    <ClCompile Include="text_node.cpp" />
+    <ClCompile Include="texture_holder.cpp" />
+    <ClCompile Include="title_state.cpp" />
+    <ClCompile Include="utility.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="action.hpp" />
@@ -232,7 +232,7 @@
     <ClInclude Include="world.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ResourceHolder.inl" />
+    <None Include="resource_holder.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

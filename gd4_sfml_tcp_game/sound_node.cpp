@@ -1,17 +1,17 @@
-#include "SoundNode.hpp"
+#include "sound_node.hpp"
 
-#include "SoundPlayer.hpp"
-#include "ReceiverCategories.hpp"
+#include "sound_player.hpp"
+#include "receiver_categories.hpp"
 
 
 SoundNode::SoundNode(SoundPlayer& player)
-	: m_sounds(player)
+	: sounds_(player)
 {
 }
 
 void SoundNode::PlaySound(SoundEffect sound, sf::Vector2f position)
 {
-	m_sounds.Play(sound, position);
+	sounds_.Play(sound, position);
 }
 
 unsigned int SoundNode::GetCategory() const
